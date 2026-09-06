@@ -1,0 +1,621 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath,amsfonts,amssymb}
+\usepackage{geometry}
+\geometry{a4paper,margin=1in}
+
+%%
+%%  This document presents a detailed derivation of the minimum–impulse
+%%  transfer between two nearby low-eccentricity orbits in three
+%%  dimensions.  The derivation follows the approach of Edelbaum and
+%%  collaborators but fills in intermediate steps and corrects several
+%%  typographical errors that appear in the scanned article.  Throughout
+%%  the derivation we adopt Lagrange's planetary variables and linearize
+%%  the equations of motion about a circular reference orbit of
+%%  semi-major axis a_0.
+%%
+
+\title{Detailed derivation of minimum-impulse transfers near a circular orbit}
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section*{1\quad Introduction}
+
+Optimal guidance of spacecraft frequently reduces to finding a set of
+impulsive velocity changes that transforms one orbit into another
+while minimising the total velocity expenditure.  When the orbits of
+interest are close to a common circular orbit, the problem may be
+linearised with respect to small deviations of the orbital elements.
+The resulting linear optimal control problem is amenable to analytic
+solution and yields insight into the number, timing and direction of
+optimal impulses.  In what follows we derive the complete solution of
+the minimum-impulse problem for transfers between arbitrary nearby
+orbits with small eccentricities and small mutual inclination.
+
+\paragraph{State variables.}  The departure and arrival orbits are
+\emph{described} by deviations in the semi-major axis $a$, the eccentricity
+vector $(e_x,e_y)$ and the inclination vector $(i_x,i_y)$ relative
+to the reference circular orbit of semi-major axis~$a_0$.  For small
+eccentricity $e\ll 1$ and small inclination $i\ll 1$ the Cartesian
+components $e_x$, $e_y$, $i_x$ and $i_y$ are proportional to the usual
+scalar eccentricity $e$ and inclination $i$, respectively.  The
+state vector
+\[
+  x = \begin{pmatrix}
+    x_1 \\ x_2 \\ x_3 \\ x_4 \\ x_5
+  \end{pmatrix}
+  = \begin{pmatrix}
+    \displaystyle \frac{a-a_0}{a_0} \\ e_y \\ e_x \\ i_y \\ i_x
+  \end{pmatrix}
+\]
+will be used in the sequel, together with the independent variable
+\emph{fuel} $u$, defined as the time integral of the thrust
+acceleration.  Because the thrust is assumed to be arbitrarily large
+(impulsive), $u$ is simply the sum of the magnitudes of the velocity
+impulses.
+
+\paragraph{Control variables.}  An impulse of magnitude~$\Delta v$ is
+characterised by the direction cosines $l_R$, $l_T$ and~$l_N$ of the
+thrust vector along the radial, circumferential and normal directions
+of the reference orbit, respectively.  For an infinitesimal change of
+magnitude $\mathrm{d}u$ the corresponding change in the spacecraft
+velocity is $\mathrm{d}\mathbf{v} = (l_R, l_T, l_N)\,\mathrm{d}u$.
+
+\paragraph{Planar equations of motion.}  To first order in the
+perturbations the equations of motion follow from Lagrange's planetary
+equations.  Linearisation about the reference circular orbit yields
+\begin{align}
+  \frac{\mathrm{d}x_1}{\mathrm{d}u} &= 2\,\sqrt{\frac{a_0}{K}}\,l_T,
+    \tag{1}\label{eq:dx1du}\\
+  \frac{\mathrm{d}x_2}{\mathrm{d}u} &= \sqrt{\frac{a_0}{K}}
+    \bigl(2\,l_T\sin\theta - l_R\cos\theta\bigr),
+    \tag{2}\label{eq:dx2du}\\
+  \frac{\mathrm{d}x_3}{\mathrm{d}u} &= \sqrt{\frac{a_0}{K}}
+    \bigl(2\,l_T\cos\theta + l_R\sin\theta\bigr),
+    \tag{3}\label{eq:dx3du}\\
+  \frac{\mathrm{d}x_4}{\mathrm{d}u} &= \sqrt{\frac{a_0}{K}}\,l_N\sin\theta,
+    \tag{4}\label{eq:dx4du}\\
+  \frac{\mathrm{d}x_5}{\mathrm{d}u} &= \sqrt{\frac{a_0}{K}}\,l_N\cos\theta.
+    \tag{5}\label{eq:dx5du}
+\end{align}
+Here $K$ denotes the gravitational constant $GM$ of the central body
+and $\theta$ is the true longitude (central angle) of the spacecraft
+with respect to a fixed reference direction in the reference orbital
+plane.  Equations~\eqref{eq:dx1du}--\eqref{eq:dx5du} are easily
+derived from the Gauss variational equations: a purely tangential
+impulse changes the semi-major axis through an energy change,
+whereas radial and tangential impulses alter the components of the
+eccentricity vector, and a normal impulse changes the inclination.
+
+\section*{2\quad Hamiltonian formulation and primer vector}
+
+We convert the optimal impulsive control problem into a static
+Hamiltonian system by applying Pontryagin's maximum principle.  The
+Hamiltonian is linear in the control because the state equations are
+linear in the thrust direction cosines,
+\begin{equation}
+  H = \sum_{i=1}^5 \lambda_i\,\frac{\mathrm{d}x_i}{\mathrm{d}u},
+  \tag{6}\label{eq:Hamiltonian}
+\end{equation}
+where $\lambda_i$ are the adjoint variables (Lagrange multipliers) and
+the explicit factor $p = \max\|\lambda\|$ is the magnitude of the
+\emph{primer vector} introduced by Lawden.  Writing the components of
+the primer vector in the radial, tangential and normal directions as
+$\lambda$, $\mu$ and $\nu$, respectively, we have
+\begin{equation}
+  l_R = \frac{\lambda}{p},\quad l_T = \frac{\mu}{p},\quad
+  l_N = \frac{\nu}{p},
+  \tag{7}\label{eq:thrustdircos}
+\end{equation}
+so that an optimal impulse points in the direction of the primer
+vector.  Substituting the state equations
+\eqref{eq:dx1du}--\eqref{eq:dx5du} into the Hamiltonian yields the
+components of the primer vector in terms of the adjoint variables
+$\lambda_i$:
+\begin{align}
+  \lambda &= \sqrt{\frac{a_0}{K}}
+    \bigl(-\lambda_2\cos\theta + \lambda_3\sin\theta\bigr),
+    \tag{8}\label{eq:lambda}\\
+  \mu &= \sqrt{\frac{a_0}{K}}
+    \bigl(2\,\lambda_1 + 2\,\lambda_2\sin\theta + 2\,\lambda_3\cos\theta\bigr),
+    \tag{9}\label{eq:mu}\\
+  \nu &= \sqrt{\frac{a_0}{K}}
+    \bigl(\lambda_4\sin\theta + \lambda_5\cos\theta\bigr).
+    \tag{10}\label{eq:nu}
+\end{align}
+The factor $\sqrt{a_0/K}$ arises from the time-to-fuel scaling in the
+state equations.  The maximum principle requires that the thrust
+direction maximise $H$ at every impulse.  Therefore the thrust points
+in the direction of the primer vector, and the optimum impulses occur
+at longitudes $\theta$ where $p = \sqrt{\lambda^2 + \mu^2 + \nu^2}$
+attains a (global) maximum.
+
+\paragraph{Elliptic form of the primer locus.}  The components
+\eqref{eq:lambda}--\eqref{eq:nu} depend on $\theta$ through sine and
+cosine.  Following Lawden we combine $\lambda_2$ and $\lambda_3$ into
+a magnitude and phase via
+\[
+  \sqrt{\lambda_2^2 + \lambda_3^2} =: L,\qquad
+  \tan \theta_0 = \frac{\lambda_2}{\lambda_3}.
+\]
+Using the trigonometric identities
+\begin{align}
+  \lambda_2\cos\theta - \lambda_3\sin\theta &= L\sin(\theta - \theta_0),\\
+  \lambda_2\sin\theta + \lambda_3\cos\theta &= L\cos(\theta - \theta_0),
+\end{align}
+we may rewrite Eqs.~(\ref{eq:lambda})--(\ref{eq:nu}) as
+\begin{align}
+  \lambda(\theta) &= \sqrt{\frac{a_0}{K}}\,L\,\sin(\theta - \theta_0),
+    \tag{11}\label{eq:lambdatheta}\\
+  \mu(\theta) &= \sqrt{\frac{a_0}{K}}
+    \bigl(2\,\lambda_1 + 2 L\cos(\theta - \theta_0)\bigr),
+    \tag{12}\label{eq:mutheta}\\
+  \nu(\theta) &= \sqrt{\frac{a_0}{K}}
+    \Bigl( \frac{\lambda_3\lambda_4 - \lambda_2\lambda_5}{L}
+           \sin(\theta - \theta_0)
+           + \frac{\lambda_2\lambda_4 + \lambda_3\lambda_5}{L}
+           \cos(\theta - \theta_0)\Bigr).
+    \tag{13}\label{eq:nutheta}
+\end{align}
+In this form $(\lambda,\mu,\nu)$ traces an ellipse in the three-
+dimensional space spanned by the radial, tangential and normal axes as
+the true longitude $\theta$ varies.  Two special cases of this
+ellipse lead to multiple maxima of the primer magnitude $p$ and
+therefore to multi-impulse solutions.
+
+\section*{3\quad Classification of primer loci}
+
+Multiple-impulse solutions require that the primer magnitude $p$ have
+two or more equal maxima as a function of $\theta$.  The geometry of
+\eqref{eq:lambdatheta}--\eqref{eq:nutheta} shows that this can occur
+only when the ellipse of the primer locus satisfies one of three
+conditions.  We summarise these cases before solving the associated
+two-point boundary-value problems.
+
+\subsection*{3.1\quad Nodal case}
+
+When the centre of the ellipse passes through the origin of the
+$(\lambda,\mu,\nu)$-space, the primer magnitude is symmetric about
+two diametrically opposite points on the major axis of the ellipse.
+These points differ by $\pi$ in longitude.  Algebraically, the
+condition that the ellipse be centred at the origin is that
+$\lambda_1 = 0$.  With that assumption, the maxima of
+\eqref{eq:lambdatheta}--\eqref{eq:nutheta} occur at $\theta_1$ and
+$\theta_2 = \theta_1 + \pi$.  Equations
+\eqref{eq:lambdatheta}--\eqref{eq:nutheta} then imply
+\[
+  \lambda(\theta_2) = -\lambda(\theta_1),\quad
+  \mu(\theta_2)    = -\mu(\theta_1),\quad
+  \nu(\theta_2)    = -\nu(\theta_1).
+\]
+Hence the two optimal impulses have equal magnitudes and opposite
+components.
+
+\subsection*{3.2\quad Non-degenerate case}
+
+In the second case the ellipse passes through the $\mu$-axis (i.e.
+the tangential axis).  This occurs when $\lambda_2\lambda_4 =
+-\lambda_3\lambda_5$.  The primer locus then lies in a single plane
+and has two symmetric maxima located at longitudes $\theta_1$ and
+$\theta_2$ equidistant from the phase angle $\theta_0$, i.e. $\theta_2
+- \theta_0 = \theta_0 - \theta_1$.  At these points one finds
+\[
+  \lambda(\theta_2) = -\lambda(\theta_1),\quad
+  \mu(\theta_2)    =  \mu(\theta_1),\quad
+  \nu(\theta_2)    = -\nu(\theta_1).
+\]
+The algebraic conditions defining the non-degenerate case will be
+revisited in Section~\ref{sec:nondegenerate-bvp}.
+
+\subsection*{3.3\quad Singular case}
+
+When the ellipse degenerates into a circle, the primer magnitude is
+constant for all $\theta$.  This singular case arises when
+$\lambda_1 = 0$, $\lambda_2\lambda_4 = -\lambda_3\lambda_5$ and
+$3 (\lambda_2^2 + \lambda_3^2)^2 = (\lambda_3\lambda_4 -
+\lambda_2\lambda_5)^2$.  Up to scaling one finds
+\[
+  \lambda(\theta) = \tfrac12\sin(\theta - \theta_0),\quad
+  \mu(\theta)    =      \cos(\theta - \theta_0),\quad
+  \nu(\theta)    = \tfrac{\sqrt{3}}{2}\sin(\theta - \theta_0).
+\]
+Because every point on the orbit yields the same primer magnitude, the
+impulses can be placed anywhere; the only requirement is that the
+net change in the orbital elements satisfy the boundary conditions.
+Section~\ref{sec:singular-case} presents the associated solution.
+
+\section*{4\quad Two-point boundary-value problem: nodal case}
+
+In the nodal case $\lambda_1 = 0$, so the centre of the primer ellipse
+is at the origin and the two impulse locations are separated by
+$180^\circ$ in longitude.  We choose the $x$-axis along the line of nodes of
+the transfer, so that the impulses occur at $\theta_1 = 0$ and
+$\theta_2 = \pi$.  Let $u_1$ and $u_2$ denote the magnitudes of the
+two impulses and define $u = u_1 + u_2$ and $\delta = u_2/u$.  The
+state equations~\eqref{eq:dx1du}--\eqref{eq:dx5du} are linear in the
+control and may be integrated piecewise over the two impulses.  Using
+the symmetry of the primer vector one finds for the net changes in the
+orbital elements
+\begin{align}
+  \Delta x_1 &= 2\,u\,\sqrt{\frac{a_0}{K}}\,l_{T,1}\,(1-2\delta),
+    \tag{A1}\label{eq:nodal-dx1}\\
+  \Delta x_2 &= -u\,\sqrt{\frac{a_0}{K}}\,l_{R,1},
+    \tag{A2}\label{eq:nodal-dx2}\\
+  \Delta x_3 &= 2\,u\,\sqrt{\frac{a_0}{K}}\,l_{T,1},
+    \tag{A3}\label{eq:nodal-dx3}\\
+  \Delta x_4 &= 0,
+    \tag{A4}\label{eq:nodal-dx4}\\
+  \Delta x_5 &= u\,\sqrt{\frac{a_0}{K}}\,l_{N,1}.
+    \tag{A5}\label{eq:nodal-dx5}
+\end{align}
+Here $(l_{R,1},l_{T,1},l_{N,1})$ denotes the thrust direction of the
+first impulse; the second impulse has direction $-(l_{R,1},l_{T,1},l_{N,1})$ because the primer vector reverses when $\theta$ is increased by~$\pi$.  Equations~\eqref{eq:nodal-dx1}--\eqref{eq:nodal-dx5} follow directly from integrating Eqs.~\eqref{eq:dx1du}--\eqref{eq:dx5du} over the two impulses and making use of the fact that $\sin(\theta_1)=0$, $\cos(\theta_1)=1$ and $\sin(\theta_2)=0$, $\cos(\theta_2)=-1$.
+
+Solving Eqs.~(\ref{eq:nodal-dx1})--\eqref{eq:nodal-dx5} for the total
+impulse $u$ and the split $u_1$ yields
+\begin{align}
+  u &= \sqrt{\frac{K}{a_0}}\,\sqrt{\Delta i^2 + \frac{1}{4}\,\Delta e_x^2 + \Delta e_y^2},
+    \tag{A6}\label{eq:nodal-u}\\
+  u_1 &= \frac{\Delta e_x + \Delta x_1}{2\,\Delta e_x}\,u.
+    \tag{A7}\label{eq:nodal-u1}
+\end{align}
+Equation~\eqref{eq:nodal-u} states that the minimum total impulse for
+a nodal transfer depends on the final change in inclination and
+eccentricity but not on the change in semi-major axis $\Delta x_1$
+(because $\lambda_1=0$).  The impulse split \eqref{eq:nodal-u1}
+reduces to $u_1 = u/2$ when there is no change in the semi-major axis.
+
+\paragraph{Admissibility conditions.}  Two inequalities limit the
+region of applicability of the nodal solution.  First, the primer
+vector at the location of an impulse must point in the same direction
+as the control, which implies that $\Delta x_1^2 \leq \Delta e_x^2$.
+Secondly, the maxima at $\theta_1$ and $\theta_2$ must be genuine
+maxima of $p$; this requirement leads to $\Delta i^2 \geq 3\,\Delta
+e_y^2$.  Transfers violating either of these inequalities lie in the
+non-degenerate or singular regions and must be treated separately.
+
+\paragraph{Optimal impulse directions.}  The Lagrange multipliers can
+be obtained by differentiating the payoff ($u$) with respect to the
+terminal state.  When the primer is normalised so that $p=1$ at the
+impulse, the adjoints are
+\begin{align}
+  \lambda_1 &= 0,
+    \tag{A8}\label{eq:nodal-l1}\\
+  \lambda_2 &= \sqrt{\frac{K}{a_0}}\,\frac{\Delta e_y}{\sqrt{\Delta i^2 + \tfrac14\Delta e_x^2 + \Delta e_y^2}},
+    \tag{A9}\label{eq:nodal-l2}\\
+  \lambda_3 &= \sqrt{\frac{K}{a_0}}\,\frac{\Delta e_x}{4\,\sqrt{\Delta i^2 + \tfrac14\Delta e_x^2 + \Delta e_y^2}},
+    \tag{A10}\label{eq:nodal-l3}\\
+  \lambda_4 &= -\frac{3}{4}\,\sqrt{\frac{K}{a_0}}\,\frac{\Delta e_x\,\Delta e_y}{\Delta i}\,\frac{1}{\sqrt{\Delta i^2 + \tfrac14\Delta e_x^2 + \Delta e_y^2}},
+    \tag{A11}\label{eq:nodal-l4}\\
+  \lambda_5 &= \sqrt{\frac{K}{a_0}}\,\frac{\Delta i}{\sqrt{\Delta i^2 + \tfrac14\Delta e_x^2 + \Delta e_y^2}}.
+    \tag{A12}\label{eq:nodal-l5}
+\end{align}
+Note that in Eq.~\eqref{eq:nodal-l4} the denominator involves the
+magnitude $\Delta i$ of the inclination change.  The scanned
+article displays $\Delta i_x$ in that denominator, which is
+misleading because in the nodal case $\Delta i_y = 0$ and hence
+$\Delta i = \Delta i_x$.  We retain the correct dependence on
+$\Delta i$ for clarity.
+
+The primer vector at the impulse is obtained by substituting
+\eqref{eq:nodal-l2}--\eqref{eq:nodal-l5} into
+\eqref{eq:lambdatheta}--\eqref{eq:nutheta} and setting $\theta=0$.
+Normalising to unit magnitude one finds the thrust direction cosines
+\begin{equation}
+  l_{R,1} = -\frac{\Delta e_y}{\sqrt{\Delta i^2 + \tfrac14\Delta e_x^2 + \Delta e_y^2}},\quad
+  l_{T,1} = \frac{\Delta e_x}{2\,\sqrt{\Delta i^2 + \tfrac14\Delta e_x^2 + \Delta e_y^2}},\quad
+  l_{N,1} = \frac{\Delta i}{\sqrt{\Delta i^2 + \tfrac14\Delta e_x^2 + \Delta e_y^2}}.
+  \tag{A13}\label{eq:nodal-dircos}
+\end{equation}
+These direction cosines are the same for the second impulse except
+that the radial and normal components change sign because the
+longitudes are separated by $\pi$.
+
+\section*{5\quad Two-point boundary-value problem: non-degenerate case}
+\label{sec:nondegenerate-bvp}
+
+In the non-degenerate case the primer ellipse is not centred at the
+origin but still yields two equal maxima at symmetrically located
+longitudes.  Solving the boundary-value problem requires more
+algebra.  Following Edelbaum we introduce an alternative normalisation
+of the adjoints in which the combination
+\[
+  \alpha := \sqrt{\frac{a_0}{K}}\,\frac{\lambda_3\lambda_4 - \lambda_2\lambda_5}{\sqrt{\lambda_2^2 + \lambda_3^2}}
+\]
+is set equal to one.  Define further
+\[
+  R := \sqrt{\frac{a_0}{K}}\,\sqrt{\lambda_2^2 + \lambda_3^2},\quad
+  C := \cos(\theta - \theta_0),\quad S := \sin(\theta - \theta_0).
+\]
+With these definitions the primer components become rational
+functions of $R$, $C$ and $S$.  Eliminating $\lambda_1$ using the
+analogue of Eq.~(21) leads to the thrust direction cosines at the
+impulse points:
+\begin{align}
+  l_R &= \frac{\lambda}{p}
+        = \frac{2R^2\,S}{\sqrt{1+R^2}\,\sqrt{4R^2 + (1-3R^2)C^2}},
+        \tag{B1}\label{eq:nondeg-lR}\\
+  l_T &= \frac{\mu}{p}
+        = \frac{\sqrt{1+R^2}\,C}{\sqrt{4R^2 + (1-3R^2)C^2}},
+        \tag{B2}\label{eq:nondeg-lT}\\
+  l_N &= \frac{\nu}{p}
+        = \frac{2R\,S}{\sqrt{1+R^2}\,\sqrt{4R^2 + (1-3R^2)C^2}}.
+        \tag{B3}\label{eq:nondeg-lN}
+\end{align}
+Because the second impulse occurs at $\theta_2$ such that $\theta_2
+-\theta_0 = -(\theta_1-\theta_0)$, the values of $C$ and $S$ at the
+two impulses are $\pm C$ and $\mp S$, respectively.  However,
+Eq.~\eqref{eq:nondeg-lT} shows that the tangential direction cosine
+$l_T$ has the same sign at both impulses whereas the radial and normal
+components reverse, consistent with the conditions defining the
+non-degenerate case.
+
+\paragraph{Change in orbital elements.}  Substituting
+\eqref{eq:nondeg-lR}--\eqref{eq:nondeg-lN} into the state
+equations and integrating over the two impulses yields the total
+changes in the orbital elements (in the temporary reference frame with
+$x$-axis aligned with $\theta_0$):
+\begin{align}
+  \frac{\Delta x_1}{u} &=
+    \frac{2C}{\sqrt{4R^2 + (1-3R^2)C^2}}\,\sqrt{1+R^2},
+    \tag{B4}\label{eq:nondeg-dx1}\\
+  \frac{\Delta x_2}{u} &=
+    \frac{2\,(C^2 + R^2)}{\sqrt{1+R^2}\,\sqrt{4R^2 + (1-3R^2)C^2}},
+    \tag{B5}\label{eq:nondeg-dx2}\\
+  \frac{\Delta x_3}{u} &=
+    \frac{2C\,S\,(1-2\delta)}{\sqrt{1+R^2}\,\sqrt{4R^2 + (1-3R^2)C^2}},
+    \tag{B6}\label{eq:nondeg-dx3}\\
+  \frac{\Delta x_4}{u} &=
+    \frac{2R\,S^2}{\sqrt{1+R^2}\,\sqrt{4R^2 + (1-3R^2)C^2}},
+    \tag{B7}\label{eq:nondeg-dx4}\\
+  \frac{\Delta x_5}{u} &=
+    \frac{2R\,C\,S\,(1-2\delta)}{\sqrt{1+R^2}\,\sqrt{4R^2 + (1-3R^2)C^2}}.
+    \tag{B8}\label{eq:nondeg-dx5}
+\end{align}
+The eccentricity change vector $(\Delta x_2,\Delta x_3)$ makes an
+angle $\omega$ with respect to the $x$-axis, while the inclination
+change vector $(\Delta x_4,\Delta x_5)$ makes an angle $\Omega$.
+Define
+\[
+  \tan \omega = \frac{\Delta x_2}{\Delta x_3},\quad
+  \tan \Omega = \frac{\Delta x_4}{\Delta x_5}.
+\]
+Eliminating $\delta$ from Eqs.~\eqref{eq:nondeg-dx2}--\eqref{eq:nondeg-dx5}
+shows that the difference between these angles is related to $R$, $C$ and
+$S$ via
+\begin{equation}
+  T := \tan(\omega - \Omega) =
+  \frac{(1-2\delta)^2 C^2 S - (C^2 + R^2)S}{(1-2\delta)(1+R^2)\,C}.
+  \tag{B9}\label{eq:T-def}
+\end{equation}
+Solving this equation for the impulse split yields
+\begin{equation}
+  1 - 2\delta =
+    \frac{T(1+R^2) - \sqrt{T^2 (1+R^2)^2 + 4 S^2 (C^2 + R^2)}}{2 S C}.
+  \tag{B10}\label{eq:delta-solve}
+\end{equation}
+Substituting \eqref{eq:delta-solve} back into
+\eqref{eq:nondeg-dx2}--\eqref{eq:nondeg-dx5} and eliminating $S$ in
+favour of $C$ through $S = \sqrt{1-C^2}$ (with the appropriate sign)
+allows the total magnitudes of the eccentricity and inclination
+changes to be expressed in closed form as
+\begin{align}
+  \frac{\Delta e}{u} &:= \frac{1}{u}\,\sqrt{(\Delta x_2)^2 + (\Delta x_3)^2}
+    = \sqrt{\frac{4(C^2 + R^2) + 2 T^2 (1+R^2) - 2 T\,\sqrt{T^2 (1+R^2)^2 + 4 S^2 (R^2 + C^2)}}{4 R^2 (1-3R^2) C^2}},
+    \tag{B11}\label{eq:Delta-e}\\
+  \frac{\Delta i}{u} &:= \frac{1}{u}\,\sqrt{(\Delta x_4)^2 + (\Delta x_5)^2}
+    = R\,\sqrt{\frac{4 S^2 + 2 T^2 (1+R^2) - 2 T\,\sqrt{T^2 (1+R^2)^2 + 4 S^2 (R^2 + C^2)}}{4 R^2 (1-3R^2) C^2}}.
+    \tag{B12}\label{eq:Delta-i}
+\end{align}
+These expressions simplify further when one introduces the change in
+semi-major axis.  By eliminating $C$ and $S$ one obtains a relation
+between $R$ and the transfer parameters.  To this end, multiply
+\eqref{eq:Delta-e} by $R$ and divide it by
+\eqref{eq:nondeg-dx1}, and divide \eqref{eq:Delta-i} by
+\eqref{eq:nondeg-dx1}.  Subtracting the squares of the resulting
+equations yields
+\begin{equation}
+  C^2 = \frac{R^2 (1 - R^2)\,(\Delta a/a_0)^2}{2 R^2 (\Delta a/a_0)^2 - (1+R^2)
+    \bigl(R^2 \Delta e^2 - \Delta i^2\bigr)}.
+  \tag{B13}\label{eq:C2}
+\end{equation}
+Finally one solves Eq.~\eqref{eq:C2} together with the definitions of
+$\Delta e$ and $\Delta i$ for $R$.  After some algebra one arrives at
+\begin{equation}
+  R^2 = 1 + \frac{1}{2}
+    \left[\frac{(\Delta a/a_0)^2 + \Delta i^2 - \Delta e^2}
+    {\Delta i\,\Delta e\,\sin(\omega - \Omega)}\right]^2
+    -
+    \sqrt{
+      \left[\frac{(\Delta a/a_0)^2 + \Delta i^2 - \Delta e^2}
+      {\Delta i\,\Delta e\,\sin(\omega - \Omega)}\right]^2
+      + \frac{1}{4}
+      \left[\frac{(\Delta a/a_0)^2 + \Delta i^2 - \Delta e^2}
+      {\Delta i\,\Delta e\,\sin(\omega - \Omega)}\right]^4}
+  .
+  \tag{B14}\label{eq:R2}
+\end{equation}
+In the scanned article Eq.~(66) contains typographical errors in the
+placement of parentheses; Eq.~\eqref{eq:R2} above is the corrected
+expression.  It shows that $R$ lies between $0$ and $1$ because the
+square root selects the negative branch.
+
+\paragraph{Total impulse.}  The Hamiltonian at the impulse is
+proportional to the primer magnitude $p$, which is normalised to one.
+The resulting payoff (total $u$) is obtained by substituting the
+solutions of the boundary-value problem back into the cost function.
+Eliminating $R$, $C$ and $S$ yields
+\begin{equation}
+  u = \sqrt{\frac{K}{2a_0}}
+      \sqrt{\Delta i^2 + \Delta e^2 - \frac{(\Delta a/a_0)^2}{2}
+      + \sqrt{\bigl(\Delta i^2 - \Delta e^2 + (\Delta a/a_0)^2\bigr)^2
+              + 4\,\Delta i^2\,\Delta e^2\,\sin^2(\omega-\Omega)}}.
+  \tag{B15}\label{eq:nondeg-u-general}
+\end{equation}
+Rotating the temporary $x$-axis back to the line of nodes and
+expressing $\Delta e$ in terms of its Cartesian components
+$\Delta e_x$ and $\Delta e_y$ yields the equivalent expression
+\begin{equation}
+  u = \sqrt{\frac{K}{2a_0}}
+      \sqrt{\Delta i^2 + \Delta e_x^2 + \Delta e_y^2
+            - \frac{(\Delta a/a_0)^2}{2}
+            + \sqrt{\bigl(\Delta i^2 - \Delta e_x^2 - \Delta e_y^2
+                        + (\Delta a/a_0)^2\bigr)^2
+                    + 4\,\Delta i^2\,\Delta e_y^2}}.
+  \tag{B16}\label{eq:nondeg-u}
+\end{equation}
+Equation~\eqref{eq:nondeg-u} corrects a sign error in the original
+source: the term inside the outer square root that depends on
+$\Delta a$ appears with the factor $-\tfrac12$, not $+\tfrac12$.
+
+\paragraph{Adjoint variables.}  As in the nodal case, the Lagrange
+multipliers may be obtained by differentiating the payoff
+\eqref{eq:nondeg-u} with respect to the terminal state.  After
+straightforward differentiation and simplification one finds
+\begin{align}
+  \lambda_1 &= \frac{K\,\Delta a}{2a_0^2\,u}
+    \left[-\frac{1}{2}
+    + \frac{\Delta i^2 - \Delta e_x^2 - \Delta e_y^2 + (\Delta a/a_0)^2}{
+      \sqrt{\bigl(\Delta i^2 - \Delta e_x^2 - \Delta e_y^2 + (\Delta a/a_0)^2\bigr)^2
+      + 4\,\Delta i^2\,\Delta e_y^2}}
+    \right],
+    \tag{B17}\label{eq:nondeg-l1}\\
+  \lambda_2 &= \frac{K\,\Delta e_y}{2a_0\,u}
+    \left[1
+    - \frac{-\Delta i^2 - \Delta e_x^2 - \Delta e_y^2 + (\Delta a/a_0)^2}{
+      \sqrt{\bigl(\Delta i^2 - \Delta e_x^2 - \Delta e_y^2 + (\Delta a/a_0)^2\bigr)^2
+      + 4\,\Delta i^2\,\Delta e_y^2}}
+    \right],
+    \tag{B18}\label{eq:nondeg-l2}\\
+  \lambda_3 &= \frac{K\,\Delta e_x}{2a_0\,u}
+    \left[1
+    - \frac{\Delta i^2 - \Delta e_x^2 - \Delta e_y^2 + (\Delta a/a_0)^2}{
+      \sqrt{\bigl(\Delta i^2 - \Delta e_x^2 - \Delta e_y^2 + (\Delta a/a_0)^2\bigr)^2
+      + 4\,\Delta i^2\,\Delta e_y^2}}
+    \right],
+    \tag{B19}\label{eq:nondeg-l3}\\
+  \lambda_4 &= -\frac{K\,\Delta e_y}{2a_0\,u}
+    \left[\frac{2\,\Delta e_x\,\Delta i}{
+      \sqrt{\bigl(\Delta i^2 - \Delta e_x^2 - \Delta e_y^2 + (\Delta a/a_0)^2\bigr)^2
+      + 4\,\Delta i^2\,\Delta e_y^2}}
+    \right],
+    \tag{B20}\label{eq:nondeg-l4}\\
+  \lambda_5 &= \frac{K\,\Delta i}{2a_0\,u}
+    \left[1
+    + \frac{\Delta i^2 - \Delta e_x^2 + \Delta e_y^2 + (\Delta a/a_0)^2}{
+      \sqrt{\bigl(\Delta i^2 - \Delta e_x^2 - \Delta e_y^2 + (\Delta a/a_0)^2\bigr)^2
+      + 4\,\Delta i^2\,\Delta e_y^2}}
+    \right].
+    \tag{B21}\label{eq:nondeg-l5}
+\end{align}
+These expressions correct several misprints in the scanned article,
+notably the sign of the prefactor in $\lambda_1$ and the placement of
+the terms inside the radicals.
+
+\section*{6\quad Singular case}
+\label{sec:singular-case}
+
+When the primer locus becomes a circle, the magnitude of the primer
+vector is independent of $\theta$.  From the conditions
+\[
+  \lambda_1 = 0,\quad \lambda_2\lambda_4 = -\lambda_3\lambda_5,\quad
+  3(\lambda_2^2 + \lambda_3^2)^2 = (\lambda_3\lambda_4 - \lambda_2\lambda_5)^2,
+\]
+one obtains up to scaling
+\[
+  \lambda(\theta) = \tfrac12\sin(\theta - \theta_0),\quad
+  \mu(\theta)    =      \cos(\theta - \theta_0),\quad
+  \nu(\theta)    = \tfrac{\sqrt{3}}{2}\sin(\theta - \theta_0).
+\]
+Every value of $\theta$ is a maximum of $p$ so the impulses may be
+distributed arbitrarily.  A convenient choice is to place the two
+impulses at longitudes separated by $\pi$ and with equal magnitudes
+$u/2$; however the solution is not unique.
+
+\paragraph{Change in semi-major axis.}  In the singular region the
+semi-major axis is no longer determined by the eccentricity and
+inclination changes: the payoff does not depend on $a$ because
+$\lambda_1=0$.  Setting $\lambda_1=0$ in the general expression
+\eqref{eq:nondeg-l1} and solving for $\Delta a$ yields
+\begin{equation}
+  (\Delta a)^2 = a_0^2\Bigl( \Delta e_x^2 + \Delta e_y^2 +
+    2\,\sqrt{3}\,\Delta i\,\Delta e_y - \Delta i^2 \Bigr).
+  \tag{C1}\label{eq:singular-a}
+\end{equation}
+If the required $\Delta a$ of a transfer satisfies
+$|\Delta a|\leq a_0\,\sqrt{\Delta e_x^2 + \Delta e_y^2 + 2\sqrt{3}
+\,\Delta i\,\Delta e_y - \Delta i^2}$, then the transfer lies in the
+singular or nodal region.  The payoff for the singular case follows
+from Eqs.~\eqref{eq:nondeg-u} or \eqref{eq:nondeg-u-general} by
+substituting the bound~\eqref{eq:singular-a} and simplifying:
+\begin{equation}
+  u = \sqrt{\frac{K}{4a_0}}
+        \sqrt{ \bigl( \sqrt{3}\,\Delta i + \Delta e_y\bigr)^2 + \Delta e_x^2 }.
+  \tag{C2}\label{eq:singular-u}
+\end{equation}
+This expression depends only on the eccentricity and inclination
+changes; the semi-major axis change is limited by
+\eqref{eq:singular-a} and does not affect $u$.
+
+\paragraph{Orientation of the singular locus.}  The orientation
+$\theta_0$ of the primer circle relative to the line of nodes is
+obtained by substituting the derivatives of the payoff with respect to
+$\Delta e_x$ and $\Delta e_y$ into Eq.~(14).  A compact formula is
+\begin{equation}
+  \tan \theta_0 = \frac{\Delta e_y + \sqrt{3}\,\Delta i}{\Delta e_x}.
+  \tag{C3}\label{eq:singular-theta0}
+\end{equation}
+This shows that when the eccentricity and inclination change vectors
+are aligned ($\Delta e_x=0$), the primer circle is oriented midway
+between them.
+
+\paragraph{Reduced dynamics.}  In the singular region the effective
+dimension of the reachable set is reduced.  Choosing the $x$-axis
+along $\theta_0$ one may substitute the singular expressions for
+$(\lambda,\mu,\nu)$ into the state equations.  The resulting rates of
+change of the elements are
+\begin{align}
+  \frac{\mathrm{d}x_1}{\mathrm{d}u} &= 2C,
+    \tag{C4}\label{eq:singular-dx1}\\
+  \frac{\mathrm{d}x_2}{\mathrm{d}u} &= \frac{3}{2}\,S C,
+    \tag{C5}\label{eq:singular-dx2}\\
+  \frac{\mathrm{d}x_3}{\mathrm{d}u} &= 2 - \frac{3}{2}\,S^2,
+    \tag{C6}\label{eq:singular-dx3}\\
+  \frac{\mathrm{d}x_4}{\mathrm{d}u} &= \frac{\sqrt{3}}{2}\,S^2,
+    \tag{C7}\label{eq:singular-dx4}\\
+  \frac{\mathrm{d}x_5}{\mathrm{d}u} &= \frac{\sqrt{3}}{2}\,S C.
+    \tag{C8}\label{eq:singular-dx5}
+\end{align}
+These relations show that $x_2$ is proportional to $x_5$ and $x_3$ is
+proportional to $x_4$ along a single impulse.  By using two impulses
+with different values of $S^2$ and appropriate splits one can reach
+any point inside the convex hull defined by the envelope of these
+curves; the details of these constructions lie beyond the scope of
+this derivation.
+
+\section*{7\quad Discussion and conclusions}
+
+The preceding derivations provide complete analytic expressions for
+minimum-impulse transfers between nearby orbits under the assumption
+that both eccentricity and inclination remain small.  Three classes of
+solutions arise: the nodal case, in which the two impulses occur
+exactly on the line of nodes; the non-degenerate case, in which the
+primer locus is an off-centre ellipse and the impulses occur away
+from the nodes with unequal splits; and the singular case, in which
+the primer locus is a circle and any distribution of thrust along the
+optimal direction yields the same fuel consumption.  Correcting
+typographical errors in the original source, we presented explicit
+expressions for the total impulse, the impulse split, the thrust
+direction cosines and the associated adjoint variables in each case.
+
+The singular solutions are of particular interest because they allow
+finite-thrust arcs to replace sequences of impulses without loss of
+optimality.  They also hint at the existence of nonlinear singular
+solutions in the full (nonlinear) optimal control problem.  Future
+research may extend the present linear analysis to include higher
+order effects, finite thrust arcs and terminal constraints on
+position.
+
+\end{document}

@@ -1,0 +1,365 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{geometry}
+\geometry{a4paper, margin=1in}
+
+\title{First Compilation of Papers on Trajectory Analysis and Guidance Theory-47-81}
+\author{T. N. Edelbaum \\ Analytical Mechanics Associates, Inc. \\ Cambridge, Massachusetts}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\section*{ABSTRACT}
+An analytic solution is obtained for minimum impulse transfer between two neighboring low-eccentricity orbits. The orientations of the arguments of perigee and the line of nodes are completely arbitrary. The solutions obtained are of three different classes. The first class consists of two-impulse nodal transfers with both impulses occurring on the line of nodes and having equal but opposite radial, circumferential and normal direction cosines for the impulses. The second class also consists of two-impulse solutions but with equal circumferential direction cosines, and equal and opposite radial and normal direction cosines. The location of the two impulses for this class is a function of the particular transfer. The third class consists of singular solutions with a well-defined thrust direction at every point but with an infinite number of solutions for the distribution of impulses (or even continuous finite thrusts) all having the same fuel consumption. The singular solution can be realized with two impulses so that two impulses suffice for all of these optimum transfers.
+
+*Performed under contract NAS 12-26.
+
+\section*{NOMENCLATURE}
+\begin{align*}
+a &\quad \text{Semi-major axis} \\
+a_0 &\quad \text{Semi-major axis of circular reference orbit} \\
+C &\quad \text{Cos } (\theta - \theta_0) \\
+e &\quad \text{Eccentricity} \\
+e_x &\quad x \text{ component of eccentricity} \\
+e_y &\quad y \text{ component of eccentricity} \\
+H &\quad \text{Variational Hamiltonian} \\
+i &\quad \text{Inclination of orbit planes} \\
+i_x &\quad x \text{ component of inclination} \\
+i_y &\quad y \text{ component of inclination} \\
+K &\quad \text{Gravitational constant} \\
+l_{N} &\quad \text{Direction cosine of the thrust normal to the orbit plane} \\
+l_{R} &\quad \text{Radial direction cosine of the thrust} \\
+l_{T} &\quad \text{Circumferential direction cosine of the thrust} \\
+p &\quad \text{Magnitude of the primer vector} \\
+R &\quad \text{Defined by Eq. (50)} \\
+S &\quad \text{Sin } (\theta - \theta_0) \\
+T &\quad \text{Defined by Eq. (61)} \\
+u &\quad \text{Time integral of thrust acceleration} \\
+x_i &\quad \text{Defined by Eqs. (1)-(5)} \\
+\delta &\quad \text{Defined by Eq. (31)} \\
+\theta &\quad \text{Central angle} \\
+\lambda &\quad \text{Radial component of the primer vector} \\
+\lambda_i &\quad \text{Lagrange multipliers} \\
+\mu &\quad \text{Circumferential component of the primer vector} \\
+\nu &\quad \text{Normal component of the primer vector} \\
+\omega &\quad \text{Defined by Eq. (60)} \\
+\Omega &\quad \text{Defined by Eq. (60)}
+\end{align*}
+
+\section*{SOLUTION FOR MINIMUM IMPULSE TRANSFERS}
+
+\subsection*{INTRODUCTION}
+The theory of optimal space vehicle guidance has much in common with classical applied mechanics and celestial mechanics. As might be expected, many of the techniques of these classical disciplines have been applied to problems of optimal space vehicle guidance. Such techniques include Taylor series expansions, linear perturbation theory, higher order perturbation theory, matched asymptotic expansions, the method of averaging, and Hamilton-Jacobi theory. Many of these techniques have been quite successful for some problems. However, optimal guidance problems introduce some special difficulties that are not present in typical problems of celestial mechanics.
+
+One of the usual procedures for transforming an optimal guidance problem into a problem in Hamiltonian mechanics is to use the maximum principle, or its classical equivalents, to express the control in terms of the adjoint. The control is often a highly nonlinear function of the adjoint so that small changes in the adjoint may cause large changes in the control. This simple fact can cause many of the methods which are successful for problems in celestial mechanics to break down when applied to problems in optimal guidance.
+
+This simple fact can even cause trouble with perturbation methods specifically developed for optimal guidance, such as the method of "neighboring optimal" or "second variation" guidance. This guidance method linearizes the state, the adjoint and the control, and can cause difficulty towards the terminal point where small changes in the state may require large nonlinear changes in the control. The same difficulty can occur with higher order schemes, such as nth variation guidance, because the expansion of the solution in variations of various orders may not converge.
+
+One method of studying this terminal accuracy problem is to linearize the problem about the final state. The resulting trajectory optimization and optimal guidance problems may then sometimes be solved analytically. For power-limited rockets, the control is a linear function of the adjoint and the above difficulties do not arise. Minimum-fuel power-limited solutions have been obtained for three-dimensional linearizations about circular orbits (Ref. 1) and elliptic orbits (Ref. 2). These solutions are for rendezvous in a fixed time.
+
+For rockets with constant exhaust velocity, the control is a nonlinear function of the adjoint and the problem is far more difficult. Even if no bounds are placed on the control magnitude (so that impulses are allowed) and the transfer time and terminal positions are left open, only limited (but significant) success has been achieved. The coplanar problem for elliptic terminal orbits has been partially solved in Refs. 3 and 4. A more complete solution has been obtained for three-dimensional transfers in the vicinity of a circular orbit (Refs. 4 and 5). The present paper contains additional details on the solution of Ref. 4, including the synthesis of the optimal control and the determination of the minimum number of impulses required for the singular case. Ref. 5 represents an independent derivation of the results contained herein and in Ref. 4. It includes some consideration of the effects of a slightly eccentric reference orbit.
+
+For a more complete review of the existing literature on optimal orbital transfer, the two survey papers prepared under this contract should be consulted (Refs. 6 and 7).
+
+\subsection*{ANALYSIS}
+The solution of this problem is conveniently carried out in terms of Lagrange's planetary variables. By linearizing the variation of parameter equations about a circular reference orbit, the equations of motion (1)-(5) are obtained.
+
+\begin{align}
+\frac{dx_1}{du} &= \frac{\frac{da}{a_0}}{du} = 2 \sqrt{\frac{a_0}{K}} \, l_T \tag{1} \\
+\frac{dx_2}{du} &= \frac{de_y}{du} = \sqrt{\frac{a_0}{K}} \, (2 \, l_T \sin \theta - l_R \cos \theta) \tag{2} \\
+\frac{dx_3}{du} &= \frac{de_x}{du} =\sqrt{\frac{a_0}{K}} \, (2 \, l_T \cos \theta + l_R \sin \theta) \tag{3} \\
+\frac{dx_4}{du} &= \frac{di_y}{du} = \sqrt{\frac{a_0}{K}} \, l_N \sin \theta \tag{4} \\
+\frac{dx_5}{du} &= \frac{di_x}{du} = \sqrt{\frac{a_0}{K}} \, l_N \cos \theta \tag{5}
+\end{align}
+
+Following Contensou (Ref. 8) and Breakwell (Ref. 9), the independent variable is taken as the time integral of the thrust acceleration. If the thrust is impulsive, this integral is equal to the sum of the absolute magnitudes of the impulses. The variable $\theta$ is the angular position in the reference orbit measured from the $x$ axis. Both eccentricity and inclination are treated as vectors having components along the $x$ and $y$ axes which lie in the plane of the reference orbit. The $t$'s are the direction cosines of the thrust in the radial, circumferential and normal directions.
+
+The variational problem is formulated in terms of the Hamiltonian defined by Eq. (6).
+
+\[
+H = \sum_{i=1}^{5} \lambda_i \frac{dx_i}{du} \tag{6}
+\]
+
+Following Lawden (Ref. 10), we shall introduce a primer vector which is the adjoint of the velocity vector. The magnitude of this vector will be denoted by $ p $, and its components in the radial, circumferential and normal directions will be denoted by $ \lambda $, $ \mu $ and $ \nu $, respectively. The following equations for the optimum thrust direction are derived by means of the maximum principle.
+
+\begin{align}
+l_R &= \frac{\lambda}{p} \quad l_T = \frac{\mu}{p} \quad l_N = \frac{\nu}{p} \tag{7} \\
+\lambda &= \sqrt{\frac{a_0}{K}} \left( -\lambda_2 \cos \theta + \lambda_3 \sin \theta \right) \tag{8} \\
+\mu &= \sqrt{\frac{a_0}{K}} \left( 2\lambda_1 + 2\lambda_2 \sin \theta + 2\lambda_3 \cos \theta \right) \tag{9} \\
+\nu &= \sqrt{\frac{a_0}{K}} \left( \lambda_4 \sin \theta + \lambda_5 \cos \theta \right) \tag{10}
+\end{align}
+
+The location of the impulse is given by the value of $ \theta $ where $ p $ takes on its absolute maximum. If there is to be more than one impulse, all of these maxima must be equal in magnitude.
+
+Following Lawden (Ref. 10), Eqs. (8)-(10) will be rewritten in a different form.
+
+\begin{align}
+\lambda &= \sqrt{\frac{a_0}{K}} \sqrt{\lambda_2^2 + \lambda_3^2} \sin (\theta - \theta_0) \tag{11} \\
+\mu &= \sqrt{\frac{a_0}{K}} \left[ 2 \lambda_1 + 2 \sqrt{\lambda_2^2 + \lambda_3^2} \cos (\theta - \theta_0) \right] \tag{12} \\
+\nu &= \sqrt{\frac{a_0}{K}} \left[ \frac{\lambda_3 \lambda_4 - \lambda_2 \lambda_5}{\sqrt{\lambda_2^2 + \lambda_3^2}} \sin (\theta - \theta_0) + \frac{\lambda_2 \lambda_4 + \lambda_3 \lambda_5}{\sqrt{\lambda_2^2 + \lambda_3^2}} \cos (\theta - \theta_0) \right] \tag{13} \\
+\tan \theta_0 &= \frac{\lambda_2}{\lambda_3} \tag{14}
+\end{align}
+
+Equations (11)-(13) are the equations of an ellipse in three-space. This ellipse is formed by the intersection of a two-to-one elliptic cylinder parallel to the $\nu$ axis and a plane which passes through the intersection of the cylinder axis with the $\lambda, \mu$ plane. A typical case is illustrated in Fig. 1 which also shows the projection of the ellipse on the $\lambda, \mu$ plane.
+
+There are only three configurations of this elliptical primer locus which allow the primer vector to have more than one maximum. The first configuration is a family of solutions where the center of the ellipse is located at the origin (Fig. 2). In this case the two equal maxima occur on the major axis of the ellipse and are separated by $180^\circ$. The following equations characterize this case, which will be referred to as the nodal case.
+
+\begin{align}
+\lambda_1 &= 0 \tag{15} \\
+\theta_2 &= \theta_1 + \pi \tag{16} \\
+\lambda(\theta_1) &= -\lambda(\theta_2) \\
+\mu(\theta_1) &= -\mu(\theta_2) \\
+\nu(\theta_1) &= -\nu(\theta_2) \tag{17}
+\end{align}
+
+The second configuration, which allows two equal maxima of the primer vector, corresponds to cases where the ellipse passes through the $\mu$ axis and the primer vectors again lie in a single plane (Fig. 3). This case, which will be referred to as the nondegenerate case, is characterized by the following equations and inequalities
+
+\begin{align}
+\lambda_2 \lambda_4 &= -\lambda_3 \lambda_5 \tag{18} \\
+\theta_2 - \theta_0 &= \theta_0 - \theta_1 \tag{19} \\
+\lambda (\theta_1) &= -\lambda (\theta_2) \\
+\mu (\theta_1) &= \mu (\theta_2) \\
+\nu (\theta_1) &= -\nu (\theta_2) \tag{20} \\
+\cos (\theta_1 - \theta_0) &= \frac{4 \lambda_1 \left( \sqrt{\lambda_2^2 + \lambda_3^2} \right)^3}{(\lambda_3 \lambda_4 - \lambda_2 \lambda_5)^2 - 3 (\lambda_2^2 + \lambda_3^2)^2} \tag{21} \\
+3 (\lambda_2^2 + \lambda_3^2)^2 &< (\lambda_3 \lambda_4 - \lambda_2 \lambda_5)^2 \tag{22} \\
+4 \lambda_1 \left( \sqrt{\lambda_2^2 + \lambda_3^2} \right)^3 &\leq (\lambda_3 \lambda_4 - \lambda_2 \lambda_5)^2 - 3 (\lambda_2^2 + \lambda_3^2)^2 \tag{23}
+\end{align}
+
+The third configuration is a combination of the two previous cases where the primer locus forms a circle and the primer vector has the same magnitude at all points on the orbit (Fig. 4). This singular case is characterized by the following equations where the magnitude of $p$ has been taken to be unity.
+
+\begin{align}
+\lambda_1 &= 0 \tag{24} \\
+\lambda_2 \lambda_4 &= -\lambda_3 \lambda_5 \tag{25} \\
+3(\lambda_2^2 + \lambda_3^2)^2 &= (\lambda_3 \lambda_4 - \lambda_2 \lambda_5)^2 = \frac{3}{4} \frac{K}{a_0} \tag{26} \\
+\lambda &= \frac{1}{2} \sin (\theta - \theta_0) \tag{27} \\
+\mu &= \cos (\theta - \theta_0) \tag{28} \\
+\nu &= \frac{\sqrt{3}}{2} \sin (\theta - \theta_0) \tag{29}
+\end{align}
+
+The above results for the equal maxima of the primer vector were first obtained by purely geometrical reasoning. They have been analytically verified by M. Washington in Ref. 4.
+
+The admissible adjoint solutions have now been determined. The next problem is the solution of the two-point boundary value problem to determine the optimum transfers corresponding to each adjoint solution. The simplest case is that of nodal transfer. The x axis may be aligned with the line of nodes between the initial and final orbits. Both impulses must occur on this line of nodes because of the $180^\circ$ central angle separating the impulse locations. The total change in the orbital elements is given by Eqs. (30)-(36) using Eq. (17).
+
+\begin{align}
+u &\equiv u_1 + u_2 \tag{30} \\
+\delta &\equiv \frac{u_2}{u} \tag{31} \\
+\frac{\Delta x_1}{u} &= \frac{\Delta a / a_0}{u} = 2 \sqrt{\frac{a_0}{K}} l_{T_1}(1 - 2\delta) \tag{32} \\
+\frac{\Delta x_2}{u} &= \frac{\Delta e_y}{u} = -\sqrt{\frac{a_0}{K}} l_{R_1} \tag{33} \\
+\frac{\Delta x_3}{u} &= \frac{\Delta e_x}{u} = 2 \sqrt{\frac{a_0}{K}} l_{T_1} \tag{34} \\
+\frac{\Delta x_4}{u} &= 0 \tag{35} \\
+\frac{\Delta x_5}{u} &= \frac{\Delta i}{u} = \sqrt{\frac{a_0}{K}} l_{N_1} \tag{36}
+\end{align}
+
+These equations may be solved simultaneously to determine the total required impulse [Eq. (37)] and the magnitude of the first impulse [Eq. (38)].
+
+\begin{align}
+u &= \sqrt{\frac{K}{a_0}} \sqrt{\Delta i^2 + \frac{\Delta e_x^2}{4} + \Delta e_y^2} \tag{37} \\
+u_1 &= \frac{\Delta e_x + \Delta a / a_0}{2 \Delta e_x} \sqrt{\frac{K}{a_0}} \sqrt{\Delta i^2 + \frac{\Delta e_x^2}{4} + \Delta e_y^2} \tag{38}
+\end{align}
+
+There are two bounds on the region of applicability of this solution. The first is given by the requirement that each impulse must point in the positive direction of the primer vector.
+
+\begin{align}
+\left( \frac{\Delta a}{a_0} \right)^2 &\leq \Delta e_x^2 \tag{39}
+\end{align}
+
+The second inequality is given by the requirement that the primer vector must have a maximum at the impulse locations.
+
+\begin{align}
+\Delta i^2 &\geq 3 \Delta e_y^2 \tag{40}
+\end{align}
+
+The optimal directions of the impulses must still be determined. An instructive way to do this is to differentiate the payoff with respect to the state. If the maximum magnitude of the primer vector (which is equal to the magnitude of the Hamiltonian) is taken as unity, the Lagrange multiplier for each component of the state is the partial derivative of the payoff with respect to that component of the state.
+
+\begin{align}
+\lambda_1 &= 0 \tag{41} \\
+\lambda_2 &= \sqrt{\frac{K}{a_0}} \frac{\Delta e_y}{\sqrt{\Delta i^2 + \frac{\Delta e_x^2}{4} + \Delta e_y^2}} \tag{42} \\
+\lambda_3 &= \sqrt{\frac{K}{a_0}} \frac{\Delta e_x}{4\sqrt{\Delta i^2 + \frac{\Delta e_x^2}{4} + \Delta e_y^2}} \tag{43} \\
+\lambda_4 &= -\frac{3}{4} \sqrt{\frac{K}{a_0}} \frac{\Delta e_x \Delta e_y}{\Delta i_x \sqrt{\Delta i^2 + \frac{\Delta e_x^2}{4} + \Delta e_y^2}} \tag{44} \\
+\lambda_5 &= \sqrt{\frac{K}{a_0}} \frac{\Delta i}{\sqrt{\Delta i^2 + \frac{\Delta e_x^2}{4} + \Delta e_y^2}} \tag{45}
+\end{align}
+
+The direction cosines of the impulses are given by the components of the primer vector at the impulses.
+
+\begin{align}
+\lambda_1 &= \frac{-\Delta e_y}{\sqrt{\Delta i^2 + \frac{\Delta e_x^2}{4} + \Delta e_y^2}} \tag{46} \\
+\mu_1 &= \frac{\Delta e_x}{2\sqrt{\Delta i^2 + \frac{\Delta e_x^2}{4} + \Delta e_y^2}} \tag{47} \\
+\nu_1 &= \frac{\Delta i}{\sqrt{\Delta i^2 + \frac{\Delta e_x^2}{4} + \Delta e_y^2}} \tag{48}
+\end{align}
+
+The solution of the two-point boundary value problem for the nondegenerate case is more complicated and involves considerable algebra. It is convenient to use a different normalization of the Lagrange multipliers. This normalization will be retained only to Eq. (67), where the conventional normalization with the primer vector equal to unity will be reintroduced.
+
+\begin{align}
+\sqrt{\frac{a_0}{K}} \cdot \frac{\lambda_3 \lambda_4 - \lambda_2 \lambda_5}{\sqrt{\lambda_2^2 + \lambda_3^2}} &\equiv 1 \tag{49} \\
+R &\equiv \sqrt{\frac{a_0}{K}} \cdot \sqrt{\lambda_2^2 + \lambda_3^2} \tag{50} \\
+C &\equiv \cos (\theta - \theta_0) \tag{51} \\
+S &\equiv \sin (\theta - \theta_0) \tag{51}
+\end{align}
+
+With these definitions, the direction cosines of the thrust at the impulse locations may be written:
+
+\begin{align}
+l_R &= \frac{\lambda}{p} = \frac{2R^2 S}{\sqrt{1 + R^2} \sqrt{4R^2 + (1 - 3R^2) C^2}} \tag{52} \\
+l_T &= \frac{\mu}{p} = \frac{\sqrt{1 + R^2} C}{\sqrt{4R^2 + (1 - 3R^2) C^2}} \tag{53} \\
+l_N &= \frac{\nu}{p} = \frac{2RS}{\sqrt{1 + R^2} \sqrt{4R^2 + (1 - 3R^2) C^2}} \tag{54}
+\end{align}
+
+The Lagrange multiplier $\lambda_1$ has been eliminated from these equations by use of Eq. (21). The total change in each element of the orbit can now be given by Eqs. (55)-(59).
+
+\begin{align}
+\frac{\Delta x_1}{u} &= 2C \sqrt{\frac{1 + R^2}{4R^2 + (1 - 3R^2) C^2}} \tag{55} \\
+\frac{\Delta x_2}{u} &= \frac{2(C^2 + R^2)}{\sqrt{1 + R^2} \sqrt{4R^2 + (1 - 3R^2) C^2}} \tag{56} \\
+\frac{\Delta x_3}{u} &= \frac{2CS(1-2\delta)}{\sqrt{1 + R^2} \sqrt{4R^2 + (1 - 3R^2) C^2}} \tag{57} \\
+\frac{\Delta x_4}{u} &= \frac{2RS^2}{\sqrt{1 + R^2} \sqrt{4R^2 + (1 - 3R^2) C^2}} \tag{58} \\
+\frac{\Delta x_5}{u} &= \frac{2RCS(1-2\delta)}{\sqrt{1 + R^2} \sqrt{4R^2 + (1 - 3R^2) C^2}} \tag{59}
+\end{align}
+
+The $x$ axis has been aligned with $\theta_0$ for these equations. This orientation will also be abandoned after Eq. (67), when the orientation along the line of nodes will be reintroduced.
+
+The two-point boundary value problem will now be solved in terms of the angle between the vectors describing the eccentricity change and the inclination change. The following two angles are first introduced.
+
+\begin{align}
+\tan \omega &\equiv \frac{\Delta x_2}{\Delta x_3} \quad \tan \Omega \equiv \frac{\Delta x_4}{\Delta x_5} \tag{60}
+\end{align}
+
+The variable $T$ defined in Eq. (61) can be determined from Eqs. (56)-(59).
+
+\begin{align}
+T &\equiv \tan (\omega - \Omega) = \frac{(1-2\delta)^2 C^2 S - (C^2 + R^2)S}{(1-2\delta)(1+R^2)C} \tag{61}
+\end{align}
+
+Eq. (61) can now be solved for the impulse split in terms of $T$.
+
+\begin{align}
+1-2\delta &= \frac{T(1+R^2) - \sqrt{T^2(1+R^2) + 4S^2(C^2 + R^2)}}{2SC} \tag{62}
+\end{align}
+
+The total change in eccentricity and inclination can now be calculated in terms of C, R, S, and T.
+
+\begin{align}
+\frac{\Delta e}{u} &= \sqrt{\frac{\Delta x_2^2}{u^2} + \frac{\Delta x_3^2}{u^2}} \nonumber \\
+&= \sqrt{\frac{4(C^2 + R^2) + 2T^2(1+R^2) - 2T\sqrt{T^2(1+R^2)^2 + 4S^2(R^2 + C^2)}}{4R^2(1-3R^2)C^2}} \tag{63} \\
+\frac{\Delta i}{u} &= \sqrt{\frac{\Delta x_4^2}{u^2} + \frac{\Delta x_5^2}{u^2}} \nonumber \\
+&= R \sqrt{\frac{4S^2 + 2T^2(1+R^2) - 2T\sqrt{T^2(1+R^2)^2 + 4S^2(R^2 + C^2)}}{4R^2(1-3R^2)C^2}} \tag{64}
+\end{align}
+
+By multiplying Eq. (63) by R and dividing it by Eq. (55), and dividing Eq. (64) by Eq. (65), and subtracting the squares of these two quantities, the following result may be obtained.
+
+\begin{align}
+C^2 = \frac{R^2(1-R^2)\frac{\Delta a^2}{a_0^2}}{2R^2\frac{\Delta a^2}{a_0^2} - (1+R^2)(R^2\Delta e^2 - \Delta i^2)} \tag{65}
+\end{align}
+
+This equation allows C and S to be eliminated from the previous equations and allows R to be determined in terms of the changes in the orbital elements.
+
+\begin{align}
+R^2 &= 1 + \frac{1}{2} \left[ \frac{\frac{\Delta a^2}{a_0^2} + \Delta i^2 - \Delta e^2}{\Delta i \Delta e \sin (\omega - \Omega)} \right]^2 - \\
+&- \sqrt{\left[ \frac{\frac{\Delta a^2}{a_0^2} + \Delta i^2 - \Delta e^2}{\Delta i \Delta e \sin (\omega - \Omega)} \right]^2 + \frac{1}{4} \left[ \frac{\frac{\Delta a^2}{a_0^2} + \Delta i^2 - \Delta e^2}{\Delta i \Delta e \sin (\omega - \Omega)} \right]^4} \tag{66}
+\end{align}
+
+The payoff now can be calculated in terms of the orbital elements.
+
+\begin{align}
+u = \sqrt{\frac{K}{2a_0}} \sqrt{\Delta i^2 + \Delta e^2 - \frac{\Delta a^2}{2a_0^2} + \sqrt{\left( \Delta i^2 - \Delta e^2 + \frac{\Delta a^2}{a_0^2} \right)^2 + 4 \Delta i^2 \Delta e^2 \sin^2 (\omega - \Omega)}} \tag{67}
+\end{align}
+
+At this point the orientation of the x axis along the line of nodes and the normalization of the Lagrange multipliers with p=1, used in the rest of this report, are reintroduced. The equation for the total required impulse now becomes Eq. (68).
+
+\begin{align}
+u = \sqrt{\frac{K}{2a_0}} \sqrt{\Delta i^2 + \Delta e_x^2 + \Delta e_y^2 - \frac{\Delta a^2}{2a_0^2} + \sqrt{\left( \Delta i^2 - \Delta e_x^2 - \Delta e_y^2 + \frac{\Delta a^2}{a_0^2} \right)^2 + 4 \Delta i^2 \Delta e_y^2}} \tag{68}
+\end{align}
+
+The Lagrange multipliers are now most easily obtained by differentiating the payoff, as was done for the nodal case.
+
+\begin{align}
+\lambda_1 &= \frac{K \Delta a}{2a_0^2 u} \left[- \frac{1}{2} + \frac{\Delta i^2 - \Delta e_x^2 - \Delta e_y^2 + \frac{\Delta a^2}{a_0^2}}{\sqrt{\left( \Delta i^2 - \Delta e_x^2 - \Delta e_y^2 + \frac{\Delta a^2}{a_0^2} \right)^2 + 4 \Delta i^2 \Delta e_y^2}} \right] \tag{69} \\
+\lambda_2 &= \frac{K \Delta e_y}{2 a_0 u} \left[ 1 - \frac{-\Delta i^2 - \Delta e_x^2 - \Delta e_y^2 + \frac{\Delta a^2}{a_0^2}}{\sqrt{(\Delta i^2 - \Delta e_x^2 - \Delta e_y^2 + \frac{\Delta a^2}{a_0^2})^2 + 4 \Delta i^2 \Delta e_y^2}} \right] \tag{70} \\
+\lambda_3 &= \frac{K \Delta e_x}{2 a_0 u} \left[ 1 - \frac{\Delta i^2 - \Delta e_x^2 - \Delta e_y^2 + \frac{\Delta a^2}{a_0^2}}{\sqrt{(\Delta i^2 - \Delta e_x^2 - \Delta e_y^2 + \frac{\Delta a^2}{a_0^2})^2 + 4 \Delta i^2 \Delta e_y^2}} \right] \tag{71} \\
+\lambda_4 &= -\frac{K \Delta e_y}{2 a_0 u} \left[ \frac{2 \Delta e_x \Delta i}{\sqrt{(\Delta i^2 - \Delta e_x^2 - \Delta e_y^2 + \frac{\Delta a^2}{a_0^2})^2 + 4 \Delta i^2 \Delta e_y^2}} \right] \tag{72} \\
+\lambda_5 &= \frac{K \Delta i}{2 a_0 u} \left[ 1 + \frac{\Delta i^2 - \Delta e_x^2 + \Delta e_y^2 + \frac{\Delta a^2}{a_0^2}}{\sqrt{(\Delta i^2 - \Delta e_x^2 - \Delta e_y^2 + \frac{\Delta a^2}{a_0^2})^2 + 4 \Delta i^2 \Delta e_y^2}} \right] \tag{73}
+\end{align}
+
+The orientation of the primer locus relative to the line of nodes can be found by use of Eq. (14). The location of the impulses can be found from Eq. (21) and the direction of the impulses from Eqs. (8)-(10). The impulse split between the two impulses can be found from Eq. (62) or from one of the boundary conditions.
+
+The payoff for the singular case is independent of the semi-major axis, as it is for the nodal case, because the partial derivative of the payoff with respect to the semi-major axis, $\lambda_1$, is equal to zero. The required value of change in the semi-major axis is easily determined by setting $\lambda_1$ equal to zero in the nondegenerate solution for $\lambda_1$, Eq. (69).
+
+\begin{align}
+\Delta a^2 = \Delta e_x^2 + \Delta e_y^2 + \frac{2}{\sqrt{3}} \Delta i \Delta e_y - \Delta i^2 \tag{74}
+\end{align}
+
+For changes in the semi-major axis smaller than those given by Eq. (74), the solution will be singular (or nodal) and will have the same payoff as the nondegenerate solution with the semi-major axis given by Eq. (74).
+
+\begin{align}
+u = \sqrt{\frac{K}{4a_0}} \sqrt{\left(\sqrt{3} \Delta i + \Delta e_y\right)^2 + \Delta e_x^2} \tag{75}
+\end{align}
+
+The orientation of the singular locus may also be found as a special case of the nondegenerate case.
+
+\begin{align}
+\tan \theta_0 = \frac{\Delta e_y + \sqrt{3} \Delta i}{\Delta e_x} \tag{76}
+\end{align}
+
+The optimum thrust directions are given by Eqs. (27)-(29).
+
+In this singular case, the solution space collapses from five-dimensional to three-dimensional and may be visualized in three-space. The simplest way to show this is to once again align the $x$ axis with the $\theta_0$ direction of the primer locus. The rates of change of the elements are then given by Eqs. (77)-(81).
+
+\begin{align}
+\frac{dx_1}{du} &= 2C \tag{77} \\
+\frac{dx_2}{du} &= \frac{3}{2} S C \tag{78} \\
+\frac{dx_3}{du} &= 2 - \frac{3}{2} S^2 \tag{79} \\
+\frac{dx_4}{du} &= \frac{\sqrt{3}}{2} S^2 \tag{80} \\
+\frac{dx_5}{du} &= \frac{\sqrt{3}}{2} S C \tag{81}
+\end{align}
+
+It is seen that $ x_2 $ is linearly dependent on $ x_5 $ and that $ x_3 $ is linearly dependent on $ x_4 $. Figure 5 is a plot of Eqs. (77), (80) and (81) showing the possible changes in the elements as a function of the position of the impulse. If only one impulse is allowed, the reachable states lie on the line of intersection of a circular cylinder and a parabolic cylinder which form the convex hull of the intersection. It is possible to reach points on the convex hull by using two impulses (see e.g. Ref. 8). The interesting question is whether points in the interior of the volume can also be reached with two impulses. If they can, then all minimum impulse transfers between orbits in the near vicinity of a circular orbit can be realized with only two impulses.
+
+A proof that every interior point of the convex hull is reachable with two impulses has been suggested by W. D. Hayes and S. H. Lam of Princeton University. The geometric interpretation is that a straight line which touches the space curve at two points can be passed through every interior point of the volume. The proof is constructed by drawing a unit sphere about an arbitrary interior point and projecting the space curve onto the sphere. The antipodal curve to this curve on the sphere is also drawn. The geometry of the problem is such that the curve and its antipodal curve will always intersect. As the intersection is sufficient for a straight line which touches the curve at two points to pass through the center of the sphere, two-impulse solutions are always possible. Even these two-impulse solutions are not unique, as there are usually at least two intersections of the two projected curves.
+
+The explicit calculation of the two-impulse solutions is difficult and has not been accomplished. However, three-impulse solutions are easily calculated explicitly. For example, the same value of $ \sin^2 (\theta - \theta_0) $ may be used for each impulse and the impulse splits adjusted to meet the other boundary conditions.
+
+Because these solutions are singular, they are also realizable with finite thrusts. Any transfer with the optimum thrust directions that meets the boundary conditions will realize the minimum fuel consumption.
+
+The type of solution corresponding to any particular transfer can be found from the following diagram.
+
+\subsection*{RESULTS}
+The total impulse required for any transfer as well as the transfer regions are illustrated in Figs. 6-11. In each figure, the contours are of constant values of $\Delta v/u$ going from zero at the outer boundary to unity at the origin in increments of $0.05$. Each figure is drawn for a different value of the angle between the eccentricity change vector and the inclination change vector. Figure 6 corresponds to co-axial transfers where the solution is known to consist of inclined Hohmann transfers. There is no singular solution in this case. One set of Hohmann transfers is a special case of the nodal transfers while the other is a special case of the nondegenerate transfers. This becomes clearer in Fig. 7 where the singular solution appears near the outer boundary of the figure. The nodal case is the triangular region adjoining the singular region. The nondegenerate case occupies the rest of the figure.
+
+As the angle between the eccentricity change and the inclination change increases, the nodal region rapidly decreases in size while the singular region grows. Finally, in Fig. 11 the nodal region has completely disappeared.
+
+\subsection*{SUGGESTIONS FOR FURTHER RESEARCH}
+The solutions obtained herein are quite general and contain a number of new results. They naturally suggest a number of possibilities for further research, particularly for nonlinear transfers. The following paragraphs will briefly describe some of these research areas.
+
+1. The existence of more general nodal transfers than the Hohmann transfer in this problem suggests a general investigation of nodal transfers.
+
+2. The singular solution obtained herein may be the limit point of a nonlinear singular solution like the Lawden spiral. Unlike the Lawden spiral, half of this curve satisfies the necessary condition derived by Kelley, Kopp and Moyer (Ref. 11) and by Robbins (Ref. 12).
+
+3. Either or both of the infinitesimal impulses of the present solutions may be allowed to become finite. The resulting nonlinear transfers may be investigated by the methods of Moyer (Ref. 13) or Winn (Ref. 14).
+
+4. The consideration of higher order terms will remove the degeneracy of the singular solution and will introduce three-impulse solutions (if not even more complex ones). The next step is the consideration of quadratic terms.
+
+5. The terminal guidance problem can be considered since the sensitivity of the transfer to various errors can be analytically determined. Finite thrust guidance might be approached as Robbins does in Ref. 15.
+
+\section*{REFERENCES}
+\begin{enumerate}
+\item Gobetz, F.W.: "A Linear Theory of Optimum Low-Thrust Rendezvous Trajectories," Journal of the Astronautical Sciences, Vol. 12, No. 3, Fall 1965, pp. 69-76.
+\item Edelbaum, T.N.: "Optimum Low-Thrust Rendezvous and Stationkeeping," AIAA Journal, Vol. 2, No. 7, July 1964, pp. 1196-1201.
+\item Marchal, C.: "Transferts Optimaux Entre Orbites Elliptiques Coplanaires (Duree Indifferente)," Astronautica Acta, Vol. 11, No. 6, Nov.-Dec. 1965.
+\item Gobetz, F.W., Washington, M. and Edelbaum, T.N.: "Minimum-Impulse Time-Free Transfer Between Elliptic Orbits," NASA CR-636, Nov. 1966.
+\item Marec, J.P.: "Transferts Infinitesimaux Impulsionnels Economiques entre Orbites Quasi-Circulaires non Coplanaires," presented at 17th IAF Congress, Madrid, October 1966.
+\item Edelbaum, T.N.: "Optimization Problems in Powered Space Flight," Recent Developments in Space Flight Mechanics, Vol. 9, Science and Technology Series, American Astronautical Society, Tarzana, Calif., 1966.
+\item Edelbaum, T.N.: "How Many Impulses?" AIAA Paper No. 66-7, January 1966. Revised and updated version to appear in Astronautics and Aeronautics.
+\item Contensou, P.: "Etude Theorique des Trajectories Optimaler dans un Champ de Gravitation. Application au Cas d'un Centre d'Attraction Unique," Astronautica Acta, Vol. 8, No. 2 \& 3, 1962.
+\item Breakwell, J.V.: "Minimum Impulse Transfer," AIAA Progress in Astronautics Series, Vol. 14, 1963.
+\item Lawden, D.F.: Optimal Trajectories for Space Navigation, Butterworths, London, 1963.
+\item Kelley, H.J., Kopp, R.E. and Moyer, H.G.: "Singular Extremals," Chapter 3 of Optimization Theory and Applications, G. Leitmann, Editor, Academic Press, New York, to appear.
+\item Robbins, H.M.: "Optimality of Intermediate Thrust Arcs of Rocket Trajectories," AIAA Journal, Vol. 3, pp. 1094-1098, 1965.
+\item Moyer, H.G.: "Necessary Conditions for Optimal Single Impulse Transfer," AIAA Journal, Vol. 4, pp. 1405-1410, 1966.
+\item Winn, C.B.: "Minimum Fuel Transfer Between Co-Axial Orbits, Both Coplanar and Noncoplanar," AAS Preprint 66-119, July 1966.
+\item Robbins, H.M.: "An Analytical Study of the Impulsive Approximation," AIAA Journal, Vol. 4, pp. 1417-1423, 1966.
+\end{enumerate}
+
+
+\end{document}

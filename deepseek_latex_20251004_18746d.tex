@@ -1,0 +1,458 @@
+\documentclass[12pt]{article}
+
+\usepackage{fontspec}
+% надёжный шрифт с кириллицей (работает в Overleaf)
+\setmainfont{Libertinus Serif}[Ligatures=TeX]
+\setsansfont{Libertinus Sans}[Ligatures=TeX]
+\newfontfamily\cyrillicfont{Libertinus Serif}
+\newfontfamily\cyrillicfontsf{Libertinus Sans}
+\usepackage{polyglossia}
+\setmainlanguage{russian}
+\setotherlanguage{english}
+
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{microtype}
+
+\title{Полный вывод формул оптимального импульсного управления \\ для transfers между соседними орбитами}
+\author{На основе работы T. N. Edelbaum}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\section{Фундаментальные уравнения движения}
+
+\subsection{Уравнения в оскулирующих элементах}
+
+Начнем с уравнений изменения элементов орбиты под действием малых возмущений. Для маневров вблизи круговой орбиты используем линеаризованные уравнения.
+
+Введем переменные состояния:
+\begin{align*}
+x_1 &= \frac{da}{a_0} \quad \text{(безразмерное изменение большой полуоси)} \\
+x_2 &= e_y \quad \text{(y-компонента эксцентриситета)} \\
+x_3 &= e_x \quad \text{(x-компонента эксцентриситета)} \\
+x_4 &= i_y \quad \text{(y-компонента наклонения)} \\
+x_5 &= i_x \quad \text{(x-компонента наклонения)}
+\end{align*}
+
+Уравнения движения получаются из уравнений Гаусса для оскулирующих элементов:
+
+\begin{align}
+\frac{da}{dt} &= \frac{2a^2}{h} \left(e \sin f \cdot F_R + \frac{p}{r} \cdot F_T\right) \\
+\frac{de}{dt} &= \frac{1}{h} \left[p \sin f \cdot F_R + ((p+r)\cos f + re) \cdot F_T\right] \\
+\frac{di}{dt} &= \frac{r \cos u}{h} F_N \\
+\frac{d\Omega}{dt} &= \frac{r \sin u}{h \sin i} F_N
+\end{align}
+
+где $F_R$, $F_T$, $F_N$ - компоненты ускорения в радиальной, трансверсальной и нормальной направлениях.
+
+\subsection{Линеаризация около круговой орбиты}
+
+Для круговой орбиты ($e \ll 1$, $r \approx a_0$, $h = \sqrt{\mu a_0}$, $p \approx a_0$):
+
+\begin{align*}
+\frac{da}{dt} &\approx 2\sqrt{\frac{a_0}{\mu}} F_T \\
+\frac{de_x}{dt} &\approx \sqrt{\frac{a_0}{\mu}} (2F_T \cos \theta + F_R \sin \theta) \\
+\frac{de_y}{dt} &\approx \sqrt{\frac{a_0}{\mu}} (2F_T \sin \theta - F_R \cos \theta) \\
+\frac{di_x}{dt} &\approx \sqrt{\frac{a_0}{\mu}} F_N \cos \theta \\
+\frac{di_y}{dt} &\approx \sqrt{\frac{a_0}{\mu}} F_N \sin \theta
+\end{align*}
+
+Вводим новую независимую переменную - интеграл от ускорения тяги:
+\begin{equation}
+du = |\mathbf{F}| dt
+\end{equation}
+
+Тогда компоненты ускорения:
+\begin{equation}
+F_R = l_R |\mathbf{F}| = l_R \frac{du}{dt}, \quad 
+F_T = l_T \frac{du}{dt}, \quad 
+F_N = l_N \frac{du}{dt}
+\end{equation}
+
+Подставляя, получаем уравнения (1)-(5):
+
+\begin{align}
+\frac{dx_1}{du} &= 2\sqrt{\frac{a_0}{K}} l_T \tag{1} \\
+\frac{dx_2}{du} &= \sqrt{\frac{a_0}{K}} (2l_T \sin \theta - l_R \cos \theta) \tag{2} \\
+\frac{dx_3}{du} &= \sqrt{\frac{a_0}{K}} (2l_T \cos \theta + l_R \sin \theta) \tag{3} \\
+\frac{dx_4}{du} &= \sqrt{\frac{a_0}{K}} l_N \sin \theta \tag{4} \\
+\frac{dx_5}{du} &= \sqrt{\frac{a_0}{K}} l_N \cos \theta \tag{5}
+\end{align}
+
+где $K = \mu$ - гравитационный параметр.
+
+\section{Формулировка вариационной задачи}
+
+\subsection{Гамильтониан и сопряженные переменные}
+
+Гамильтониан системы:
+\begin{equation}
+H = \sum_{i=1}^5 \lambda_i \frac{dx_i}{du} \tag{6}
+\end{equation}
+
+Подставляя уравнения (1)-(5):
+
+\begin{align*}
+H = \sqrt{\frac{a_0}{K}} \left[ 
+2\lambda_1 l_T + 
+\lambda_2 (2l_T \sin \theta - l_R \cos \theta) + 
+\lambda_3 (2l_T \cos \theta + l_R \sin \theta) + 
+\lambda_4 l_N \sin \theta + 
+\lambda_5 l_N \cos \theta
+\right]
+\end{align*}
+
+Группируем члены с $l_R$, $l_T$, $l_N$:
+
+\begin{align*}
+H = \sqrt{\frac{a_0}{K}} \left\{
+l_R [-\lambda_2 \cos \theta + \lambda_3 \sin \theta] +
+l_T [2\lambda_1 + 2\lambda_2 \sin \theta + 2\lambda_3 \cos \theta] +
+l_N [\lambda_4 \sin \theta + \lambda_5 \cos \theta]
+\right\}
+\end{align*}
+
+\subsection{Вектор праймера}
+
+Вводим компоненты вектора праймера:
+
+\begin{align}
+\lambda &= \sqrt{\frac{a_0}{K}} (-\lambda_2 \cos \theta + \lambda_3 \sin \theta) \tag{8} \\
+\mu &= \sqrt{\frac{a_0}{K}} (2\lambda_1 + 2\lambda_2 \sin \theta + 2\lambda_3 \cos \theta) \tag{9} \\
+\nu &= \sqrt{\frac{a_0}{K}} (\lambda_4 \sin \theta + \lambda_5 \cos \theta) \tag{10}
+\end{align}
+
+Тогда гамильтониан принимает вид:
+\begin{equation}
+H = l_R \lambda + l_T \mu + l_N \nu
+\end{equation}
+
+\subsection{Оптимальное управление}
+
+Согласно принципу максимума Понтрягина, оптимальное управление максимизирует гамильтониан при ограничении:
+\begin{equation}
+l_R^2 + l_T^2 + l_N^2 = 1
+\end{equation}
+
+Решаем задачу на условный экстремум. Функция Лагранжа:
+\begin{equation}
+\mathcal{L} = l_R \lambda + l_T \mu + l_N \nu + \eta (1 - l_R^2 - l_T^2 - l_N^2)
+\end{equation}
+
+Условия стационарности:
+\begin{align}
+\frac{\partial \mathcal{L}}{\partial l_R} &= \lambda - 2\eta l_R = 0 \\
+\frac{\partial \mathcal{L}}{\partial l_T} &= \mu - 2\eta l_T = 0 \\
+\frac{\partial \mathcal{L}}{\partial l_N} &= \nu - 2\eta l_N = 0
+\end{align}
+
+Отсюда:
+\begin{equation}
+l_R = \frac{\lambda}{2\eta}, \quad l_T = \frac{\mu}{2\eta}, \quad l_N = \frac{\nu}{2\eta}
+\end{equation}
+
+Из условия нормировки:
+\begin{equation}
+l_R^2 + l_T^2 + l_N^2 = \frac{\lambda^2 + \mu^2 + \nu^2}{4\eta^2} = 1
+\end{equation}
+
+Следовательно:
+\begin{equation}
+2\eta = \sqrt{\lambda^2 + \mu^2 + \nu^2} = p
+\end{equation}
+
+Окончательно получаем оптимальное управление:
+
+\begin{align}
+l_R &= \frac{\lambda}{p} \tag{7} \\
+l_T &= \frac{\mu}{p} \tag{7} \\
+l_N &= \frac{\nu}{p} \tag{7}
+\end{align}
+
+\section{Преобразование уравнений для праймера}
+
+\subsection{Преобразование радиальной компоненты}
+
+Из уравнения (8):
+\begin{equation}
+\lambda = \sqrt{\frac{a_0}{K}} (-\lambda_2 \cos \theta + \lambda_3 \sin \theta)
+\end{equation}
+
+Введем амплитуду и фазу:
+\begin{equation}
+A = \sqrt{\lambda_2^2 + \lambda_3^2}, \quad \tan \theta_0 = \frac{\lambda_2}{\lambda_3} \tag{14}
+\end{equation}
+
+Тогда:
+\begin{align}
+\lambda_2 &= A \sin \theta_0 \\
+\lambda_3 &= A \cos \theta_0
+\end{align}
+
+Подставляем:
+\begin{align}
+\lambda &= \sqrt{\frac{a_0}{K}} (-A \sin \theta_0 \cos \theta + A \cos \theta_0 \sin \theta) \\
+&= \sqrt{\frac{a_0}{K}} A (\cos \theta_0 \sin \theta - \sin \theta_0 \cos \theta) \\
+&= \sqrt{\frac{a_0}{K}} A \sin(\theta - \theta_0)
+\end{align}
+
+Таким образом:
+\begin{equation}
+\lambda = \sqrt{\frac{a_0}{K}} \sqrt{\lambda_2^2 + \lambda_3^2} \sin(\theta - \theta_0) \tag{11}
+\end{equation}
+
+\subsection{Преобразование трансверсальной компоненты}
+
+Из уравнения (9):
+\begin{equation}
+\mu = \sqrt{\frac{a_0}{K}} (2\lambda_1 + 2\lambda_2 \sin \theta + 2\lambda_3 \cos \theta)
+\end{equation}
+
+Выражаем через введенные переменные:
+\begin{align}
+\mu &= \sqrt{\frac{a_0}{K}} [2\lambda_1 + 2A(\sin \theta_0 \sin \theta + \cos \theta_0 \cos \theta)] \\
+&= \sqrt{\frac{a_0}{K}} [2\lambda_1 + 2A \cos(\theta - \theta_0)]
+\end{align}
+
+Таким образом:
+\begin{equation}
+\mu = \sqrt{\frac{a_0}{K}} \left[2\lambda_1 + 2\sqrt{\lambda_2^2 + \lambda_3^2} \cos(\theta - \theta_0)\right] \tag{12}
+\end{equation}
+
+\subsection{Преобразование нормальной компоненты}
+
+Из уравнения (10):
+\begin{equation}
+\nu = \sqrt{\frac{a_0}{K}} (\lambda_4 \sin \theta + \lambda_5 \cos \theta)
+\end{equation}
+
+Это выражение можно представить в виде:
+\begin{equation}
+\nu = \sqrt{\frac{a_0}{K}} [B \sin(\theta - \theta_0) + C \cos(\theta - \theta_0)]
+\end{equation}
+
+где коэффициенты B и C находятся из системы:
+\begin{align}
+B \cos \theta_0 - C \sin \theta_0 &= \lambda_4 \\
+B \sin \theta_0 + C \cos \theta_0 &= \lambda_5
+\end{align}
+
+Решаем эту систему:
+\begin{align}
+B &= \lambda_4 \cos \theta_0 + \lambda_5 \sin \theta_0 \\
+C &= -\lambda_4 \sin \theta_0 + \lambda_5 \cos \theta_0
+\end{align}
+
+Выражаем через $\lambda_2$ и $\lambda_3$:
+\begin{align}
+\cos \theta_0 &= \frac{\lambda_3}{\sqrt{\lambda_2^2 + \lambda_3^2}} \\
+\sin \theta_0 &= \frac{\lambda_2}{\sqrt{\lambda_2^2 + \lambda_3^2}}
+\end{align}
+
+Тогда:
+\begin{align}
+B &= \frac{\lambda_4 \lambda_3 + \lambda_5 \lambda_2}{\sqrt{\lambda_2^2 + \lambda_3^2}} \\
+C &= \frac{-\lambda_4 \lambda_2 + \lambda_5 \lambda_3}{\sqrt{\lambda_2^2 + \lambda_3^2}}
+\end{align}
+
+Таким образом:
+\begin{equation}
+\nu = \sqrt{\frac{a_0}{K}} \left[
+\frac{\lambda_3 \lambda_4 - \lambda_2 \lambda_5}{\sqrt{\lambda_2^2 + \lambda_3^2}} \sin(\theta - \theta_0) + 
+\frac{\lambda_2 \lambda_4 + \lambda_3 \lambda_5}{\sqrt{\lambda_2^2 + \lambda_3^2}} \cos(\theta - \theta_0)
+\right] \tag{13}
+\end{equation}
+
+\section{Анализ конфигураций праймера}
+
+\subsection{Общий вид праймера}
+
+Компоненты праймера образуют эллипс в 3D-пространстве. Квадрат модуля праймера:
+
+\begin{align}
+p^2 &= \lambda^2 + \mu^2 + \nu^2 \\
+&= \frac{a_0}{K} \left\{
+\lambda_2^2 + \lambda_3^2) \sin^2(\theta - \theta_0) + 
+[2\lambda_1 + 2\sqrt{\lambda_2^2 + \lambda_3^2} \cos(\theta - \theta_0)]^2 + 
+\left[\frac{\lambda_3 \lambda_4 - \lambda_2 \lambda_5}{\sqrt{\lambda_2^2 + \lambda_3^2}} \sin(\theta - \theta_0) + \frac{\lambda_2 \lambda_4 + \lambda_3 \lambda_5}{\sqrt{\lambda_2^2 + \lambda_3^2}} \cos(\theta - \theta_0)\right]^2
+\right\}
+\end{align}
+
+\subsection{Узловой случай (Nodal Case)}
+
+Условие: центр эллипса в начале координат. Это означает, что $\mu$ должно быть нечетной функцией относительно $\theta - \theta_0$, что требует:
+
+\begin{equation}
+\lambda_1 = 0 \tag{15}
+\end{equation}
+
+При этом праймер принимает вид:
+\begin{align}
+\lambda &= \sqrt{\frac{a_0}{K}} A \sin(\theta - \theta_0) \\
+\mu &= \sqrt{\frac{a_0}{K}} 2A \cos(\theta - \theta_0) \\
+\nu &= \sqrt{\frac{a_0}{K}} [B \sin(\theta - \theta_0) + C \cos(\theta - \theta_0)]
+\end{align}
+
+Для симметрии максимумов необходимо, чтобы выполнялось:
+\begin{equation}
+\theta_2 = \theta_1 + \pi \tag{16}
+\end{equation}
+
+И компоненты праймера удовлетворяли:
+\begin{align}
+\lambda(\theta_1) &= -\lambda(\theta_2) \\
+\mu(\theta_1) &= -\mu(\theta_2) \\
+\nu(\theta_1) &= -\nu(\theta_2) \tag{17}
+\end{align}
+
+\subsection{Невырожденный случай (Nondegenerate Case)}
+
+Условия:
+\begin{align}
+\lambda_2 \lambda_4 &= -\lambda_3 \lambda_5 \tag{18} \\
+\theta_2 - \theta_0 &= \theta_0 - \theta_1 \tag{19}
+\end{align}
+
+Компоненты праймера удовлетворяют:
+\begin{align}
+\lambda(\theta_1) &= -\lambda(\theta_2) \\
+\mu(\theta_1) &= \mu(\theta_2) \\
+\nu(\theta_1) &= -\nu(\theta_2) \tag{20}
+\end{align}
+
+Условие для косинуса:
+\begin{equation}
+\cos(\theta_1 - \theta_0) = \frac{4\lambda_1 (\sqrt{\lambda_2^2 + \lambda_3^2})^3}{(\lambda_3 \lambda_4 - \lambda_2 \lambda_5)^2 - 3(\lambda_2^2 + \lambda_3^2)^2} \tag{21}
+\end{equation}
+
+Неравенства:
+\begin{align}
+3(\lambda_2^2 + \lambda_3^2)^2 &< (\lambda_3 \lambda_4 - \lambda_2 \lambda_5)^2 \tag{22} \\
+4\lambda_1 (\sqrt{\lambda_2^2 + \lambda_3^2})^3 &\leq (\lambda_3 \lambda_4 - \lambda_2 \lambda_5)^2 - 3(\lambda_2^2 + \lambda_3^2)^2 \tag{23}
+\end{align}
+
+\subsection{Сингулярный случай (Singular Case)}
+
+Условия:
+\begin{align}
+\lambda_1 &= 0 \tag{24} \\
+\lambda_2 \lambda_4 &= -\lambda_3 \lambda_5 \tag{25} \\
+3(\lambda_2^2 + \lambda_3^2)^2 &= (\lambda_3 \lambda_4 - \lambda_2 \lambda_5)^2 = \frac{3}{4} \frac{K}{a_0} \tag{26}
+\end{align}
+
+Компоненты праймера (при $p = 1$):
+\begin{align}
+\lambda &= \frac{1}{2} \sin(\theta - \theta_0) \tag{27} \\
+\mu &= \cos(\theta - \theta_0) \tag{28} \\
+\nu &= \frac{\sqrt{3}}{2} \sin(\theta - \theta_0) \tag{29}
+\end{align}
+
+\section{Решение двухточечной краевой задачи}
+
+\subsection{Узловой случай}
+
+Из уравнений (1)-(5) и условий симметрии (17) получаем изменения элементов:
+
+\begin{align}
+\Delta x_1 &= \int \frac{dx_1}{du} du = 2\sqrt{\frac{a_0}{K}} \int l_T du \\
+&= 2\sqrt{\frac{a_0}{K}} [l_{T_1} u_1 + l_{T_2} u_2]
+\end{align}
+
+Но из симметрии: $l_{T_2} = -l_{T_1}$, поэтому:
+\begin{equation}
+\Delta x_1 = 2\sqrt{\frac{a_0}{K}} l_{T_1} (u_1 - u_2) = 2\sqrt{\frac{a_0}{K}} l_{T_1} u (1 - 2\delta) \tag{32}
+\end{equation}
+где $\delta = u_2 / u$.
+
+Аналогично для других компонент:
+\begin{align}
+\Delta x_2 &= -\sqrt{\frac{a_0}{K}} l_{R_1} u \tag{33} \\
+\Delta x_3 &= 2\sqrt{\frac{a_0}{K}} l_{T_1} u \tag{34} \\
+\Delta x_4 &= 0 \tag{35} \\
+\Delta x_5 &= \sqrt{\frac{a_0}{K}} l_{N_1} u \tag{36}
+\end{align}
+
+Из (34) находим:
+\begin{equation}
+l_{T_1} = \frac{\Delta x_3}{2u} \sqrt{\frac{K}{a_0}}
+\end{equation}
+
+Из (33):
+\begin{equation}
+l_{R_1} = -\frac{\Delta x_2}{u} \sqrt{\frac{K}{a_0}}
+\end{equation}
+
+Из (36):
+\begin{equation}
+l_{N_1} = \frac{\Delta x_5}{u} \sqrt{\frac{K}{a_0}}
+\end{equation}
+
+Условие нормировки:
+\begin{equation}
+l_{R_1}^2 + l_{T_1}^2 + l_{N_1}^2 = 1
+\end{equation}
+
+Подставляем:
+\begin{equation}
+\left(\frac{\Delta x_2}{u}\right)^2 \frac{K}{a_0} + \left(\frac{\Delta x_3}{2u}\right)^2 \frac{K}{a_0} + \left(\frac{\Delta x_5}{u}\right)^2 \frac{K}{a_0} = 1
+\end{equation}
+
+Умножаем на $u^2$:
+\begin{equation}
+\frac{K}{a_0} \left(\Delta x_2^2 + \frac{\Delta x_3^2}{4} + \Delta x_5^2\right) = u^2
+\end{equation}
+
+Таким образом:
+\begin{equation}
+u = \sqrt{\frac{K}{a_0}} \sqrt{\Delta i^2 + \frac{\Delta e_x^2}{4} + \Delta e_y^2} \tag{37}
+\end{equation}
+
+Величина первого импульса из (32):
+\begin{equation}
+u_1 = \frac{\Delta e_x + \Delta a/a_0}{2\Delta e_x} \sqrt{\frac{K}{a_0}} \sqrt{\Delta i^2 + \frac{\Delta e_x^2}{4} + \Delta e_y^2} \tag{38}
+\end{equation}
+
+\subsection{Невырожденный случай}
+
+Вводим новые переменные:
+\begin{align}
+R &\equiv \sqrt{\frac{a_0}{K}} \cdot \sqrt{\lambda_2^2 + \lambda_3^2} \tag{50} \\
+C &\equiv \cos(\theta - \theta_0) \\
+S &\equiv \sin(\theta - \theta_0)
+\end{align}
+
+И нормировку:
+\begin{equation}
+\sqrt{\frac{a_0}{K}} \cdot \frac{\lambda_3 \lambda_4 - \lambda_2 \lambda_5}{\sqrt{\lambda_2^2 + \lambda_3^2}} \equiv 1 \tag{49}
+\end{equation}
+
+После преобразований получаем выражения для направляющих косинусов (52)-(54) и изменений элементов (55)-(59).
+
+Далее вводим углы:
+\begin{equation}
+\tan \omega \equiv \frac{\Delta x_2}{\Delta x_3}, \quad \tan \Omega \equiv \frac{\Delta x_4}{\Delta x_5} \tag{60}
+\end{equation}
+
+И переменную:
+\begin{equation}
+T \equiv \tan(\omega - \Omega) \tag{61}
+\end{equation}
+
+После решения системы получаем выражение для суммарного импульса:
+\begin{equation}
+u = \sqrt{\frac{K}{2a_0}} \sqrt{\Delta i^2 + \Delta e_x^2 + \Delta e_y^2 - \frac{\Delta a^2}{2a_0^2} + \sqrt{\left(\Delta i^2 - \Delta e_x^2 - \Delta e_y^2 + \frac{\Delta a^2}{a_0^2}\right)^2 + 4\Delta i^2 \Delta e_y^2}} \tag{68}
+\end{equation}
+
+\subsection{Сингулярный случай}
+
+Для сингулярного случая получаем:
+\begin{equation}
+u = \sqrt{\frac{K}{4a_0}} \sqrt{\left(\sqrt{3}\Delta i + \Delta e_y\right)^2 + \Delta e_x^2} \tag{75}
+\end{equation}
+
+\end{document}

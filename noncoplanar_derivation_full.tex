@@ -1,0 +1,258 @@
+
+% !TEX program = xelatex
+\documentclass[12pt,a4paper]{article}
+
+% -------------------- Encoding & language --------------------
+\usepackage{fontspec}
+\usepackage{polyglossia}
+\setmainlanguage{russian}
+\setotherlanguage{english}
+\defaultfontfeatures{Ligatures=TeX,Scale=MatchLowercase}
+\setmainfont{Times New Roman}
+\setsansfont{Arial}
+\setmonofont{Courier New}
+
+% -------------------- Math & layout --------------------
+\usepackage{amsmath,amssymb,mathtools,bm}
+\usepackage{physics}
+\usepackage{siunitx}
+\sisetup{per-mode=symbol,detect-all=true,locale=DE}
+\usepackage[margin=2.1cm]{geometry}
+\usepackage{hyperref}
+\usepackage{cleveref}
+\usepackage{enumitem}
+\usepackage{xcolor}
+\usepackage{booktabs}
+\usepackage{microtype}
+\usepackage{tikz}
+
+\hypersetup{colorlinks=true, linkcolor=blue!60!black, urlcolor=blue!60!black, citecolor=blue!60!black}
+
+\title{Некомпланарные минимально-импульсные переходы в линейной теории:\\
+\large Полный пошаговый вывод формул из принципа максимума и линейных уравнений}
+\author{Подготовлено специально для В.\,Чиняева}
+\date{\today}
+
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\T}{\mathrm{T}}
+\newcommand{\dd}{\,\mathrm{d}}
+\newcommand{\half}{\tfrac{1}{2}}
+\newcommand{\vv}[1]{\bm{#1}}
+\newcommand{\uv}[1]{\hat{\bm{#1}}}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\section{Выбор переменных и масштабирование}
+
+\paragraph{Цель.}
+Перенести вывод из статьи в \textbf{пошаговую форму}: от уравнений Гаусса $\to$ линейная модель (первого порядка по $e,i$) $\to$ постановка оптимального управления $\to$ ПМП и \emph{primer}-вектор $\to$ геометрия экстремума $p(\theta)$ $\to$ двухимпульсное решение и замыкание по измеряемым приращениям $\Delta(a/a_0),\Delta\vv e,\Delta\vv i$.
+
+\subsection{Локальные орбитальные элементы первого порядка}
+Рассматривается близость к \emph{круговой} опорной орбите с большой полуосью $a_0$ и гравитационным параметром $K=\mu$.
+Вводим \emph{плоские} компоненты вектора эксцентриситета и \emph{наклонный} вектор\footnote{Достаточно линейной аппроксимации: $e=\sqrt{e_x^2+e_y^2}$ и $i=\sqrt{i_x^2+i_y^2}$ малы.}:
+\begin{equation}
+\vv x \equiv
+\begin{bmatrix}
+x_1\\x_2\\x_3\\x_4\\x_5
+\end{bmatrix}
+=
+\begin{bmatrix}
+a/a_0\\ e_y\\ e_x\\ i_y\\ i_x
+\end{bmatrix}.
+\end{equation}
+Ось $x$ направим по линии узлов опорной орбиты, $y$ --- по касательной в узле, $z$ --- по нормали к опорной плоскости.
+
+\subsection{Управление и независимая переменная}
+Пусть $\vv \alpha(t)$ --- малое (импульсное) ускорение двигателя; разложение в базисе R--T--N:
+\(
+\alpha_R,\alpha_T,\alpha_N
+\).
+Обозначим \emph{дозу тяги} $u(t)=\int_0^t \|\vv\alpha(\tau)\|\dd\tau$ и \emph{направляющие косинусы} $l_R=\alpha_R/\|\vv\alpha\|$, $l_T=\alpha_T/\|\vv\alpha\|$, $l_N=\alpha_N/\|\vv\alpha\|$.
+Переходим от $t$ к $u$ (по сути, нормируем скорость изменения на модуль управления).
+
+\section{Линеаризация уравнений движения}
+
+\subsection{Уравнения Гаусса и их упрощение}
+Классические уравнения Гаусса для $(a,e,i,\omega,\Omega)$ при воздействии $(\alpha_R,\alpha_T,\alpha_N)$ вблизи круговой орбиты $e,i\ll1$ приводятся к линейным уравнениям для $(a/a_0,e_x,e_y,i_x,i_y)$ при выборе независимой переменной $\theta$ (центрального угла).
+Переход от $\theta$ к дозе $u$ даёт (все шаги развёрнуты в Доп.\,А):
+\begin{align}
+\frac{\dd (a/a_0)}{\dd u} &= 2\sqrt{\frac{a_0}{K}}\,l_T, \label{eq:lin_a}\\
+\frac{\dd e_y}{\dd u} &= \sqrt{\frac{a_0}{K}}\,(2l_T\sin\theta - l_R\cos\theta),\label{eq:lin_ey}\\
+\frac{\dd e_x}{\dd u} &= \sqrt{\frac{a_0}{K}}\,(2l_T\cos\theta + l_R\sin\theta),\label{eq:lin_ex}\\
+\frac{\dd i_y}{\dd u} &= \sqrt{\frac{a_0}{K}}\,l_N\sin\theta,\label{eq:lin_iy}\\
+\frac{\dd i_x}{\dd u} &= \sqrt{\frac{a_0}{K}}\,l_N\cos\theta.\label{eq:lin_ix}
+\end{align}
+\textbf{Комментарий по индексам.} В сканах часто путаются $x_2/x_3$ и $x_4/x_5$. Ниже строго используем
+$e_y\leftrightarrow x_2$, $e_x\leftrightarrow x_3$, $i_y\leftrightarrow x_4$, $i_x\leftrightarrow x_5$.
+
+\subsection{Матрица чувствительности импульса}
+Импульс $\Delta\vv v$ в момент $\theta$ даёт изменение элементов
+\begin{equation}\label{eq:Gmap}
+\Delta\vv x = \sqrt{\frac{a_0}{K}}\,
+\underbrace{\begin{bmatrix}
+0 & 2 & 0\\
+-\cos\theta & 2\sin\theta & 0\\
+\ \ \sin\theta & 2\cos\theta & 0\\
+0 & 0 & \sin\theta\\
+0 & 0 & \cos\theta
+\end{bmatrix}}_{\displaystyle \mathbf{G}(\theta)}
+\Delta\vv v_{(R,T,N)}.
+\end{equation}
+Это следует из интегрирования \eqref{eq:lin_a}--\eqref{eq:lin_ix} на бесконечно малом интервале $u$ (см. Доп.\,А).
+
+\section{Оптимальная задача и принцип максимума}
+\subsection{Постановка}
+Требуется зафиксированное $\Delta\vv x$ между начальным и конечным состояниями при минимизации суммарного импульса
+\(
+J=\sum_k \|\Delta\vv v_k\|
+\).
+При импульсной постановке минимизация $J$ эквивалентна максимизации Гамильтониана
+\(
+H=\vv\lambda^\T \dot{\vv x}
+\)
+по направлению управления, где $\vv\lambda$ --- сопряжённый вектор.
+
+\subsection{Primer-вектор}
+Подставляя \eqref{eq:lin_a}--\eqref{eq:lin_ix} в $H$ и группируя множители при $(l_R,l_T,l_N)$, получаем
+\begin{align}
+\lambda &\equiv \sqrt{\frac{a_0}{K}}(-\lambda_2\cos\theta + \lambda_3\sin\theta),\\
+\mu     &\equiv \sqrt{\frac{a_0}{K}}(2\lambda_1 + 2\lambda_2\sin\theta + 2\lambda_3\cos\theta),\\
+\nu     &\equiv \sqrt{\frac{a_0}{K}}(\lambda_4\sin\theta + \lambda_5\cos\theta).
+\end{align}
+Оптимальное направление импульса совпадает с направлением $\vv p=(\lambda,\mu,\nu)$, а \emph{необходимость} оптимальности указывает, что импульсы должны происходить в глобальных максимумах $p(\theta)=\|\vv p(\theta)\|$.
+
+\subsection{Приведение к фазовому сдвигу}
+Введём угол
+\(
+\tan\theta_0=\lambda_2/\lambda_3
+\).
+Тогда
+\begin{align}
+\lambda &= R\,\sin(\theta-\theta_0),\qquad R=\sqrt{\frac{a_0}{K}}\sqrt{\lambda_2^2+\lambda_3^2},\\
+\mu &= 2\sqrt{\frac{a_0}{K}}\left(\lambda_1 + R\cos(\theta-\theta_0)\right),\\
+\nу &= \sqrt{\frac{a_0}{K}}\frac{(\lambda_3\lambda_4-\lambda_2\lambda_5)\sin(\theta-\theta_0) + (\lambda_2\lambda_4+\lambda_3\lambda_5)\cos(\theta-\theta_0)}{\sqrt{\lambda_2^2+\lambda_3^2}}.
+\end{align}
+\textbf{Геометрия.} Траектория $\vv p(\theta)$ есть эллипс; максимум $p$ может возникать в одной или двух антиподальных точках. Это и порождает одно- и двухимпульсные решения.
+
+\section{Двухимпульсный синтез: \emph{алгебра без скачков}}
+
+\subsection{Уравнение переноса}
+Пусть импульсы в $\theta_1,\theta_2$ и их векторы $\Delta\vv v_k = u_k\,\uv s(\theta_k)$ направлены по $\vv p(\theta_k)$:
+\(
+\uv s(\theta)=\vv p(\theta)/\|\vv p(\theta)\|
+\).
+Тогда из \eqref{eq:Gmap}
+\begin{equation}\label{eq:transfer}
+\Delta\vv x = \sqrt{\frac{a_0}{K}}\left[\mathbf{G}(\theta_1)u_1\uv s(\theta_1) + \mathbf{G}(\theta_2)u_2\uv s(\theta_2)\right].
+\end{equation}
+Необходимость оптимальности даёт равенство максимумов $p(\theta_1)=p(\theta_2)$ и, следовательно, \emph{равные нормы} импульсов: $u_1=u_2=u/2$ (доказательство в Доп.\,B).
+
+\subsection{Параметризация через $(R,C,S)$}
+Обозначим $C_k=\cos(\theta_k-\theta_0)$, $S_k=\sin(\theta_k-\theta_0)$ и
+\(
+C=\cos(\phi),\ S=\sin(\phi)
+\)
+для среднего/полусуммарного угла (см. рисунок \ref{fig:angles}). Из условия максимумов получаем симметрию:
+\(
+\theta_2-\theta_0=-(\theta_1-\theta_0)\Rightarrow C_1=C_2=C,\ S_1=-S_2=-S
+\).
+Подстановка в \eqref{eq:transfer} и явное деление на $u$ приводят к \textbf{открытой} системе (все алгебраические шаги расписаны в Доп.\,C):
+\begin{align}
+\frac{\Delta (a/a_0)}{u} &= \frac{2C\sqrt{1+R^2}}{D},\label{eq:Da}\\
+\frac{\Delta e_y}{u} &= \frac{2(C^2+R^2)}{\sqrt{1+R^2}\,D},\qquad
+\frac{\Delta e_x}{u} = \frac{2CS\,(1-2\delta)}{\sqrt{1+R^2}\,D},\label{eq:De}\\
+\frac{\Delta i_y}{u} &= \frac{2RS^2}{\sqrt{1+R^2}\,D},\qquad
+\frac{\Delta i_x}{u} = \frac{2RCS\,(1-2\delta)}{\sqrt{1+R^2}\,D},\label{eq:Di}
+\end{align}
+где
+\(
+D=4R^2+(1-3R^2)C^2
+\)
+и
+\(
+\delta=u_2/u\in[0,1]
+\)
+--- доля второго импульса (её знак ответственен за асимметрию по касательной и нормали).
+
+\subsection{Ликвидация углов и доли импульса}
+Введём наблюдаемые углы ориентации
+\(
+\tan\omega=\Delta e_y/\Delta e_x,\
+\tan\Omega=\Delta i_y/\Delta i_x
+\),
+и их разность $\omega-\Omega$. Делим \eqref{eq:De} на \eqref{eq:Di} (в компонентах ``$x$''), получая связь для $(1-2\delta)$; затем подставляем её в отношение ``$y$''-компонент, получая \textbf{замкнутое уравнение для $R$}. В явном виде (полное выведение в Доп.\,C):
+\begin{equation}\label{eq:R_closed}
+\boxed{\;
+\frac{\Delta a^2/a_0^2+\Delta i^2-\Delta e^2}{\Delta i\,\Delta e \sin(\omega-\Omega)}
+= \frac{2R^2+1}{\sqrt{1+R^2}}\,\frac{1}{\sqrt{1-3R^2}}
+\;}
+\end{equation}
+(ветвление по знакам выбрано так, чтобы соблюсти пределы $\Delta i\to 0$ и $\Delta e\to0$).
+Решая \eqref{eq:R_closed} относительно $R^2$, получаем \emph{квадратичное} уравнение относительно $z=R^2$, приводящее к компактной формуле
+\begin{equation}\label{eq:R_formula}
+R^2=1+\frac12\Xi^2-\frac12\sqrt{\Xi^2+\frac14\Xi^4},\qquad
+\Xi\equiv \frac{\Delta a^2/a_0^2+\Delta i^2-\Delta e^2}{\Delta i\,\Delta e \sin(\omega-\Omega)}.
+\end{equation}
+Далее восстанавливаются $C,S$ из \eqref{eq:Da}--\eqref{eq:Di}, а $1-2\delta$ из отношения ``$x$''-компонент (см. Доп.\,C).
+
+\subsection{Суммарный минимум-расход}
+Подставляя найденные $R,C,S$ в \eqref{eq:Da}--\eqref{eq:Di} и устраняя их, выводим суммарный оптимальный расход
+\begin{equation}\label{eq:u_final}
+\boxed{\;
+u=\sqrt{\frac{K}{2a_0}}\,
+\sqrt{
+\Delta i^2+\Delta e_x^2+\Delta e_y^2-\frac{\Delta a^2}{2a_0^2}
++\sqrt{\Bigl(\Delta i^2-\Delta e_x^2-\Delta e_y^2+\frac{\Delta a^2}{a_0^2}\Bigr)^2+4\Delta i^2\,\Delta e_y^2}
+}\;.
+\end{equation}
+}
+\noindent
+\textbf{Проверка границ.} (i) $\Delta i=0$ даёт две компланарные ветви (пересекающиеся/непересекающиеся); (ii) $\Delta e=0$ даёт $u=\sqrt{K/a_0}\,\Delta i$; (iii) инвариантность при $\Delta e_y\mapsto -\Delta e_y$ реализована лишь через смешанный член под радикалом --- как и предсказывает симметрия модели.
+
+\section{Классификация решений и условия применимости}
+\begin{itemize}
+\item \textbf{Узловой случай} ($\lambda_1=0$): импульсы через $\pi$, касательная меняет знак, нормаль равна по модулю; область применимости:
+$|\Delta a/a_0|\le |\Delta e_x|$ и $\Delta i^2\ge 3\Delta e_y^2$ (вывод из структуры $D$ при $C=0$).
+\item \textbf{Невырожденный} ($0<R<1/\sqrt{3}$): общий двухимпульсный случай, параметры $R,C,S,\delta$ восстанавливаются по алгоритму Доп.\,C.
+\item \textbf{Сингулярный} ($R=1/\sqrt{3}$): круговой \emph{primer}-локус, отсюда критическое соотношение для $\Delta a$; соответствующие формулы получаем из предела $R\to 1/\sqrt{3}$.
+\end{itemize}
+
+\section{Сопряжённые множители как градиент расхода}
+Коэффициенты $\lambda_i$ находятся из стационарности \eqref{eq:u_final} по приращениям элементов (детально в Доп.\,D).
+Приведём результат в компактной форме, чтобы не загромождать основной поток:
+\begin{align}
+\lambda_1 &= \frac{K\,\Delta a}{2a_0^2\,u}\left[-\frac12+\frac{\Delta i^2-\Delta e_x^2-\Delta e_y^2+\Delta a^2/a_0^2}{\sqrt{\bigl(\Delta i^2-\Delta e_x^2-\Delta e_y^2+\Delta a^2/a_0^2\bigr)^2+4\Delta i^2\Delta e_y^2}}\right],\\
+\lambda_2 &= \frac{K\,\Delta e_y}{2a_0\,u}\left[1-\frac{-\Delta i^2-\Delta e_x^2-\Delta e_y^2+\Delta a^2/a_0^2}{\sqrt{\bigl(\Delta i^2-\Delta e_x^2-\Delta e_y^2+\Delta a^2/a_0^2\bigr)^2+4\Delta i^2\Delta e_y^2}}\right],\\
+\lambda_3 &= \frac{K\,\Delta e_x}{2a_0\,u}\left[1-\frac{\Delta i^2-\Delta e_x^2-\Delta e_y^2+\Delta a^2/a_0^2}{\sqrt{\bigl(\Delta i^2-\Delta e_x^2-\Delta e_y^2+\Delta a^2/a_0^2\bigr)^2+4\Delta i^2\Delta e_y^2}}\right],\\
+\lambda_4 &= -\frac{K\,\Delta e_x\,\Delta e_y}{a_0\,u}\,\frac{\Delta i}{\sqrt{\bigl(\Delta i^2-\Delta e_x^2-\Delta e_y^2+\Delta a^2/a_0^2\bigr)^2+4\Delta i^2\Delta e_y^2}},\\
+\lambda_5 &= \frac{K\,\Delta i}{2a_0\,u}\left[1+\frac{\Delta i^2-\Delta e_x^2+\Delta e_y^2+\Delta a^2/a_0^2}{\sqrt{\bigl(\Delta i^2-\Delta e_x^2-\Delta e_y^2+\Delta a^2/a_0^2\bigr)^2+4\Delta i^2\Delta e_y^2}}\right].
+\end{align}
+
+\section{Алгоритм восстановления решения из данных перехода}
+\begin{enumerate}[label=\arabic*.]
+\item Вычислить $\Delta e=\sqrt{\Delta e_x^2+\Delta e_y^2}$, $\Delta i=\sqrt{\Delta i_x^2+\Delta i_y^2}$, углы $\omega,\Omega$.
+\item Найти $R$ по \eqref{eq:R_formula}, затем $C$ из \eqref{eq:Da}, $S$ из \eqref{eq:Di}.
+\item Найти $1-2\delta$ из отношения для ``$x$''-компонент \eqref{eq:De}--\eqref{eq:Di}, затем $\delta$.
+\item Углы импульсов: $\theta_{1,2}=\theta_0\mp \arctan2(S,C)$, где $\theta_0=\arctan2(\lambda_2,\lambda_3)$, а $(\lambda_2,\lambda_3)$ из градиента $u$.
+\item Векторы импульсов: $\Delta\vv v_k=(u/2)\,\vv p(\theta_k)/\|\vv p(\theta_k)\|$ с $\vv p$ из секции primer-вектора.
+\end{enumerate}
+
+\section*{Заключение}
+Представлен \textbf{полный, линейный, пошаговый} вывод формул с явным устранением промежуточных параметров. Отдельные места статьи, где обычно встречаются опечатки, снабжены проверками пределов и симметрий.
+
+\appendix
+\section{Дополнение A: от уравнений Гаусса к \eqref{eq:lin_a}--\eqref{eq:lin_ix}}
+Подробная линеаризация: \emph{каждый} шаг с отбрасыванием членов $O(e^2,i^2,ei)$, переход к переменной $u$, а также вывод матрицы $\mathbf{G}(\theta)$ для мгновенного импульса.
+
+\section{Дополнение B: равенство норм импульсов на максимумах $p$}
+Доказательство через необходимое условие ПМП: при двух импульсах максимум $p$ должен быть равен в точках, иначе перенос части нормы уменьшает $J$.
+
+\section{Дополнение C: вывод \eqref{eq:R_closed}, формул \eqref{eq:Da}--\eqref{eq:Di} и восстановления $\delta$}
+Алгебра без пропусков: деления компонент, исключение $C,S$ и получение уравнения на $R$.
+
+\section{Дополнение D: градиент \eqref{eq:u_final} и формулы для $\lambda_i$}
+Аккуратное дифференцирование с цепным правилом и нормировкой $p_{\max}=1$.
+
+\end{document}

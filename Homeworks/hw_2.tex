@@ -1,0 +1,146 @@
+\documentclass[12pt]{article}
+
+% --- Языки и шрифты для XeLaTeX/LuaLaTeX ---
+\usepackage{fontspec}
+\usepackage{polyglossia}
+\setdefaultlanguage{russian}
+\setotherlanguage{english}
+
+% Добавляет смайлики :)
+\usepackage{wasysym}
+
+% Подходящие шрифты с кириллицей (CMU есть почти везде)
+\setmainfont{CMU Serif}
+\setsansfont{CMU Sans Serif}
+\setmonofont{CMU Typewriter Text}
+
+% Математика и вёрстка
+\usepackage{amsmath,amssymb}
+\usepackage{geometry}
+\geometry{a4paper,margin=2.5cm}
+
+% Ссылки
+\usepackage{hyperref}
+\hypersetup{
+  colorlinks=true,
+  linkcolor=blue,
+  urlcolor=blue,
+  citecolor=blue
+}
+
+\begin{document}
+
+\begin{center}
+  {\LARGE Домашнее задание \#2}\\[4pt]
+  {\large Курс: Введение в маневрирование КА}\\[2pt]
+  {\small Дедлайн: \underline{20.10.2025, 23:59} }
+\end{center}
+
+\bigskip
+
+\section*{Инструкция}
+Для выполнения задания рекомендуется скачать на свой компьютер \href{https://github.com/Chelovechek-move/maneuvering}{этот репозиторий}. В файле \texttt{README} вы найдёте короткие инструкции для начала работы с проектом. В этот раз мы будем работать с одним Jupyter Notebook файлом. Его можно найти тут:
+\begin{center}
+    \texttt{examples/one\_impulse\_maneuvers\_lecture.ipynb}    
+\end{center}
+В нём пошагово решены все задачки, которые мы разбирали на лекции. Рекомендуется ещё раз пролистать презентацию и посмотреть, как были получены все результаты.
+
+\section*{Задания}
+
+\begin{enumerate}
+    \item \textbf{Одноимпульсный компланарный переход.} \\
+    \underline{Дано:} \\
+    \underline{Начальная орбита:}
+      \begin{equation*}
+          \begin{aligned}
+            &a_1 = 11\;000~\text{км},\\
+            &e_1 = 0.10,\\
+            &\omega_1 = 23^{\circ}.
+          \end{aligned}
+      \end{equation*}
+      \medskip
+      \underline{Целевая орбита:}
+      \begin{equation*}
+          \begin{aligned}
+            &a_2 = 11\;500~\text{км},\\
+            &e_2 = 0.75,\\
+            &\omega_2 = 87^{\circ}.
+          \end{aligned}
+      \end{equation*}
+      \underline{Определить:}
+       \begin{enumerate}
+        \item Точки пересечения орбит;
+        \item Импульс скорости $\Delta V$, необходимый для осуществления перехода в соответствующей точке.
+      \end{enumerate}
+
+    \item \textbf{Одноимпульсный компланарный переход.} (ещё один \smiley) \\
+    \underline{Дано:} \\
+    \underline{Начальная орбита:}
+      \begin{equation*}
+          \begin{aligned}
+            &a_1 = 11\;000~\text{км},\\
+            &e_1 = 0.10,\\
+            &\omega_1 = 23^{\circ}.
+          \end{aligned}
+      \end{equation*}
+      \medskip
+      \underline{Целевая орбита:}
+      \begin{equation*}
+          \begin{aligned}
+            &a_2 = 15\;500~\text{км},\\
+            &e_2 = 0.10,\\
+            &\omega_2 = 87^{\circ}.
+          \end{aligned}
+      \end{equation*}
+      \underline{Определить:}
+       \begin{enumerate}
+        \item Точки пересечения орбит;
+        \item Импульс скорости $\Delta V$, необходимый для осуществления перехода в соответствующей точке.
+      \end{enumerate}
+
+      \item \textbf{Коррекция $e$ и $\omega$.} \\
+      \underline{Дано:} \\
+      \underline{Начальная орбита:}
+      \begin{equation*}
+          \begin{array}{r@{\;}c@{\;}l @{\qquad} r@{\;}c@{\;}l}
+            a_1 & = & 26\;000~\text{км} & \Omega_1 & = & 0^\circ \\
+            e_1 & = & 0.7               & \omega_1 & = & 250^\circ \\
+            i_1 & = & 64^\circ          & \nu_1    & = & 110^\circ \\
+          \end{array}
+      \end{equation*}
+      \underline{Целевые элементы}
+      \begin{align*}
+            &e_2 = 0.6 \\
+            &\omega_2 = 270^\circ
+      \end{align*}
+      \underline{Определить:}
+       \begin{enumerate}
+        \item Импульс скорости $\Delta V$, необходимый для осуществления коррекции.
+      \end{enumerate}
+      \underline{Построить} график зависимости хар. скорости манёвра коррекции $e$ и $\omega$ от истинной аномалии начальной орбиты $\nu_1$.
+
+      \item \textbf{Коррекция $r_p$, $r_a$ и $i$.} \\
+      \underline{Дано:} \\
+      \underline{Начальная орбита:}
+      \begin{equation*}
+          \begin{array}{r@{\;}c@{\;}l @{\qquad} r@{\;}c@{\;}l}
+            r_{p1} & = & 42\;164~\text{км} & \Omega_1 & = & 0^\circ \\
+            r_{a1} & = & 42\;164~\text{км} & \omega_1 & = & 0^\circ \\
+            i_1    & = & 0.3^\circ         & u_1      & = & 0^\circ \\
+          \end{array}
+      \end{equation*}
+      \underline{Целевые элементы}
+      \begin{align*}
+            &r_{p2} = 42\;144~\text{км} \\
+            &r_{a2} = 42\;184~\text{км} \\
+            &i_2 = 0.1^\circ
+      \end{align*}
+      \underline{Определить:}
+       \begin{enumerate}
+        \item Импульс скорости $\Delta V$, необходимый для осуществления коррекции.
+        \item Эффект на постманевровые параметры $\Omega_2$, $\omega_2$ и $\nu_2$.
+      \end{enumerate}
+      \underline{Построить} график зависимости хар. скорости манёвра коррекции $r_p$, $r_a$ и $i$ от истинной аномалии начальной орбиты $\nu_1$.
+\end{enumerate}
+
+\end{document}

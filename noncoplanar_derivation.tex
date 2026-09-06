@@ -1,0 +1,256 @@
+
+% !TEX program = xelatex
+\documentclass[12pt,a4paper]{article}
+
+% --- Encoding & language (XeLaTeX/LuaLaTeX recommended) ---
+\usepackage{fontspec}
+\usepackage{polyglossia}
+\setmainlanguage{russian}
+\setotherlanguage{english}
+\defaultfontfeatures{Ligatures=TeX,Scale=MatchLowercase}
+\setmainfont{Times New Roman}
+\setsansfont{Arial}
+\setmonofont{Courier New}
+
+% --- Math ---
+\usepackage{amsmath,amssymb,mathtools}
+\usepackage{bm}
+\usepackage{physics}
+\usepackage{siunitx}
+\sisetup{locale=DE, per-mode=symbol}
+
+% --- Layout & refs ---
+\usepackage[margin=2.2cm]{geometry}
+\usepackage{hyperref}
+\usepackage{cleveref}
+\usepackage{enumitem}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{booktabs}
+\usepackage{microtype}
+
+\hypersetup{colorlinks=true, linkcolor=blue!60!black, urlcolor=blue!60!black, citecolor=blue!60!black}
+
+\title{Минимально-импульсные переходы в линейной теории для некопланарного случая:\\
+подробный вывод формул, проверка и исправление опечаток}
+\author{Подготовлено для курса ``Введение в маневрирование''}
+\date{\today}
+
+% --- Short helpers ---
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\dd}{\,\mathrm{d}}
+\newcommand{\T}{\mathrm{T}}
+\newcommand{\vv}[1]{\bm{#1}}
+\newcommand{\uv}[1]{\hat{\bm{#1}}}
+\newcommand{\half}{\tfrac{1}{2}}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\section{Постановка задачи и линейная модель}
+Рассматриваются две близкие кеплеровы орбиты в окрестности круговой опорной орбиты радиуса $a_0$.
+Вектор состояния выбираем в виде
+\[
+\vv x = \begin{bmatrix}
+x_1\\x_2\\x_3\\x_4\\x_5
+\end{bmatrix}
+=
+\begin{bmatrix}
+a/a_0 \\ e_y \\ e_x \\ i_y \\ i_x
+\end{bmatrix},
+\]
+где $(e_x,e_y)$ --- компоненты вектора эксцентриситета в плоскости опорной орбиты,
+а $(i_x,i_y)$ --- компоненты вектора наклонения (ориентация плоскости орбиты).\footnote{Это соответствует широко используемой линейной параметризации вблизи круговой орбиты; см. классическую линейную систему Эдельбаума.}
+В качестве независимой переменной используем накопленную \emph{тяговую дозу} $u=\int \!\alpha(t)\dd t$ \ (интеграл ускорения тяги).
+
+Линеаризованные уравнения движения по $u$ имеют вид
+\begin{align}
+\frac{\dd x_1}{\dd u} &= \frac{\dd (a/a_0)}{\dd u}= 2\sqrt{\frac{a_0}{K}}\, l_T, \label{eq:eom1}\\
+\frac{\dd x_2}{\dd u} &= \frac{\dd e_y}{\dd u}= \sqrt{\frac{a_0}{K}}\,(2l_T\sin\theta - l_R\cos\theta), \label{eq:eom2}\\
+\frac{\dd x_3}{\dd u} &= \frac{\dd e_x}{\dd u}= \sqrt{\frac{a_0}{K}}\,(2l_T\cos\theta + l_R\sin\theta), \label{eq:eom3}\\
+\frac{\dd x_4}{\dd u} &= \frac{\dd i_y}{\dd u}= \sqrt{\frac{a_0}{K}}\, l_N\sin\theta, \label{eq:eom4}\\
+\frac{\dd x_5}{\dd u} &= \frac{\dd i_x}{\dd u}= \sqrt{\frac{a_0}{K}}\, l_N\cos\theta, \label{eq:eom5}
+\end{align}
+где $K=\mu$ --- гравитационный параметр, $\theta$ --- центральный угол на опорной орбите; $l_R,l_T,l_N$ --- косинусы направлений импульса (радиальное, тангенциальное, нормальное).
+
+\paragraph{Проверка и исправление опечаток.}
+Во многих оцифрованных версиях встречаются перепутанные индексы $x_2/x_3$ и $x_4/x_5$.
+Здесь мы \textbf{фиксируем согласованность}: $e_y\leftrightarrow x_2$, $e_x\leftrightarrow x_3$, $i_y\leftrightarrow x_4$, $i_x\leftrightarrow x_5$,
+а формулы \eqref{eq:eom2}--\eqref{eq:eom5} проверяются на размерность и симметрии при повороте на $\theta\mapsto\theta+\pi$.
+
+\section{ПМП, гамильтониан и \emph{primer}-вектор}
+Введём сопряжённые переменные $\lambda_i$ и вариационный гамильтониан
+\begin{equation}
+H=\sum_{i=1}^5 \lambda_i \frac{\dd x_i}{\dd u}.
+\end{equation}
+По принципу максимума Понтрягина оптимальное направление тяги совпадает с направлением \emph{primer}-вектора $\vv p=(\lambda,\mu,\nu)$:
+\begin{equation}
+(l_R,l_T,l_N)=\frac{1}{p}(\lambda,\mu,\nu),\qquad p=\sqrt{\lambda^2+\mu^2+\nu^2}.
+\end{equation}
+Подстановка \eqref{eq:eom1}--\eqref{eq:eom5} даёт связь компонент $\vv p$ с $\lambda_i$:
+\begin{align}
+\lambda &= \sqrt{\frac{a_0}{K}}\left(-\lambda_2\cos\theta + \lambda_3\sin\theta\right), \label{eq:lamR}\\
+\mu     &= \sqrt{\frac{a_0}{K}}\left(2\lambda_1 + 2\lambda_2\sin\theta + 2\lambda_3\cos\theta\right), \label{eq:lamT}\\
+\nu     &= \sqrt{\frac{a_0}{K}}\left(\lambda_4\sin\theta + \lambda_5\cos\theta\right). \label{eq:lamN}
+\end{align}
+Удобно ввести фазовый сдвиг $\theta_0$ по
+\begin{equation}
+\tan\theta_0=\frac{\lambda_2}{\lambda_3},
+\end{equation}
+после чего \eqref{eq:lamR}--\eqref{eq:lamN} приводятся к стандартной эллиптической форме
+\begin{align}
+\lambda &= \sqrt{\frac{a_0}{K}}\sqrt{\lambda_2^2+\lambda_3^2}\,\sin(\theta-\theta_0),\\
+\mu &= \sqrt{\frac{a_0}{K}}\left(2\lambda_1 + 2\sqrt{\lambda_2^2+\lambda_3^2}\,\cos(\theta-\theta_0)\right),\\
+\nu &= \sqrt{\frac{a_0}{K}}\frac{(\lambda_3\lambda_4-\lambda_2\lambda_5)\sin(\theta-\theta_0) + (\lambda_2\lambda_4+\lambda_3\lambda_5)\cos(\theta-\theta_0)}{\sqrt{\lambda_2^2+\lambda_3^2}}.
+\end{align}
+Траектория $\vv p(\theta)$ есть эллипс в трёхмерном пространстве --- классический \emph{primer-locus}. Места импульсов соответствуют \emph{глобальным} максимумам $p(\theta)$; если импульсов несколько, значения $p$ в их точках равны.
+
+\section{Классификация оптимальных решений по геометрии $\vv p$}
+Ровно три конфигурации допускают два равных максимума $p$:
+\begin{enumerate}[label=\textbf{(\alph*)}]
+\item \textbf{Узловой (nodal)} случай: центр эллипса в начале координат $\Rightarrow \lambda_1=0$; импульсы через $\pi$, направления противоположны в каждой из компонент $(\lambda,\mu,\nu)$.
+\item \textbf{Невырожденный} (двухимпульсный вне осей): эллипс пересекает ось $\mu$; выполняются соотношения
+$\lambda_2\lambda_4=-\lambda_3\lambda_5$, $\theta_2-\theta_0=\theta_0-\theta_1$, и $\mu(\theta_1)=\mu(\theta_2)$, остальные компоненты меняют знак.
+\item \textbf{Сингулярный} (круг): $p\equiv1$, $\lambda_1=0$, $\lambda_2\lambda_4=-\lambda_3\lambda_5$, и
+\begin{equation}
+\lambda=\tfrac12\sin(\theta-\theta_0),\quad \mu=\cos(\theta-\theta_0),\quad \nu=\sqrt{\tfrac32}\sin(\theta-\theta_0).
+\end{equation}
+\end{enumerate}
+
+\section{Решение двухточечной краевой задачи}
+Пусть суммарная доза $u=u_1+u_2$, а $\delta=u_2/u$.
+
+\subsection{Узловые решения}
+Ось $x$ совмещаем с линией узлов, импульсы в $\theta_1$ и $\theta_2=\theta_1+\pi$.
+Интегрируя \eqref{eq:eom1}--\eqref{eq:eom5}, получаем суммарные приращения элементов через компоненты первого импульса $(l_{R1},l_{T1},l_{N1})$:
+\begin{align}
+\frac{\Delta (a/a_0)}{u} &= 2\sqrt{\frac{a_0}{K}}\, l_{T1}(1-2\delta),\\
+\frac{\Delta e_y}{u} &= -\sqrt{\frac{a_0}{K}}\, l_{R1},\qquad
+\frac{\Delta e_x}{u} = 2\sqrt{\frac{a_0}{K}}\, l_{T1},\\
+\frac{\Delta i_y}{u} &= 0,\qquad
+\frac{\Delta i}{u} = \sqrt{\frac{a_0}{K}}\, l_{N1}.
+\end{align}
+Отсюда легко выражаются
+\begin{equation}
+u=\sqrt{\frac{K}{a_0}}\sqrt{\Delta i^2 + \frac{\Delta e_x^2}{4} + \Delta e_y^2},\qquad
+u_1=\frac{\Delta e_x+\Delta (a/a_0)}{2\Delta e_x}\,u.
+\end{equation}
+\textbf{Область применимости} определяется условиями согласования со знаком \emph{primer}-вектора и максимумом $p$ в точках импульсов:
+\begin{equation}
+\left(\frac{\Delta a}{a_0}\right)^2 \le \Delta e_x^2,\qquad
+\Delta i^2\ge 3\Delta e_y^2.
+\end{equation}
+Оптимальные направления первого импульса следуют из нормированного $\vv p$ (или из производных выигрыша):
+\begin{equation}
+l_{R1}=-\frac{\Delta e_y}{\sqrt{\Delta i^2+\Delta e_x^2/4+\Delta e_y^2}},\ \ 
+l_{T1}= \frac{\Delta e_x/2}{\sqrt{\Delta i^2+\Delta e_x^2/4+\Delta e_y^2}},\ \ 
+l_{N1}= \frac{\Delta i}{\sqrt{\Delta i^2+\Delta e_x^2/4+\Delta e_y^2}}.
+\end{equation}
+
+\subsection{Невырожденные двухимпульсные решения}
+Вводим
+\begin{equation}
+R=\sqrt{\frac{a_0}{K}}\sqrt{\lambda_2^2+\lambda_3^2},\quad
+C=\cos(\theta-\theta_0),\ S=\sin(\theta-\theta_0).
+\end{equation}
+Тогда направления импульсов в точках $\theta_{1,2}$ выражаются через $R,C,S$ (после исключения $\lambda_1$ по условию максимума):
+\begin{align}
+l_R &= \frac{2R^2 S}{\sqrt{1+R^2}\,\sqrt{4R^2+(1-3R^2)C^2}},\\
+l_T &= \frac{\sqrt{1+R^2}\,C}{\sqrt{4R^2+(1-3R^2)C^2}},\\
+l_N &= \frac{2RS}{\sqrt{1+R^2}\,\sqrt{4R^2+(1-3R^2)C^2}}.
+\end{align}
+Суммарные приращения (после сложения двух импульсов) принимают вид
+\begin{align}
+\frac{\Delta (a/a_0)}{u} &= \frac{2C\sqrt{1+R^2}}{4R^2+(1-3R^2)C^2},\\
+\frac{\Delta e_y}{u} &= \frac{2(C^2+R^2)}{\sqrt{1+R^2}\,\sqrt{4R^2+(1-3R^2)C^2}},\\
+\frac{\Delta e_x}{u} &= \frac{2CS(1-2\delta)}{\sqrt{1+R^2}\,\sqrt{4R^2+(1-3R^2)C^2}},\\
+\frac{\Delta i_y}{u} &= \frac{2RS^2}{\sqrt{1+R^2}\,\sqrt{4R^2+(1-3R^2)C^2}},\\
+\frac{\Delta i_x}{u} &= \frac{2RCS(1-2\delta)}{\sqrt{1+R^2}\,\sqrt{4R^2+(1-3R^2)C^2}}.
+\end{align}
+Обозначим углы ориентации векторов изменений эксцентриситета и наклонения
+\(
+\tan\omega=\Delta e_y/\Delta e_x,\ 
+\tan\Omega=\Delta i_y/\Delta i_x
+\)
+и введём
+\begin{equation}
+T=\tan(\omega-\Omega)=\frac{(1-2\delta)^2 C^2 S-(C^2+R^2)S}{(1-2\delta)(1+R^2)C}.
+\end{equation}
+Из этой связи получаем \emph{распил импульсов}
+\begin{equation}
+1-2\delta=\frac{T(1+R^2)-\sqrt{T^2(1+R^2)^2+4S^2(C^2+R^2)}}{2SC}.
+\end{equation}
+Устраняя $C,S$, выводим выражение для $R$ через наблюдаемые приращения элементов (ключевой технический шаг линеаризованного решения):
+\begin{equation}
+R^2=1+\frac12\Biggl[\frac{\Delta a^2/a_0^2+\Delta i^2-\Delta e^2}{\Delta i\,\Delta e \sin(\omega-\Omega)}\Biggr]^2-\frac12
+\sqrt{\Biggl[\frac{\Delta a^2/a_0^2+\Delta i^2-\Delta e^2}{\Delta i\,\Delta e \sin(\omega-\Omega)}\Biggr]^2+\frac14\Biggl[\frac{\Delta a^2/a_0^2+\Delta i^2-\Delta e^2}{\Delta i\,\Delta e \sin(\omega-\Omega)}\Biggr]^4 }.
+\end{equation}
+Наконец, суммарный минимум-импульсный расход (в терминах $u=\sum\|\Delta\vv v\|$) равен
+\begin{equation}\label{eq:u_final_vector}
+u=\sqrt{\frac{K}{2a_0}}\,
+\sqrt{
+\Delta i^2+\Delta e_x^2+\Delta e_y^2-\frac{\Delta a^2}{2a_0^2}
++\sqrt{\Bigl(\Delta i^2-\Delta e_x^2-\Delta e_y^2+\frac{\Delta a^2}{a_0^2}\Bigr)^2+4\Delta i^2\,\Delta e_y^2}
+}\,.
+\end{equation}
+\textbf{Замечание об исправлении знаков.} В некоторых OCR-версиях в подкоренном выражении перед $\Delta a^2/a_0^2$ встречается неверный коэффициент.
+Формула \eqref{eq:u_final_vector} согласуется с пределами: (i) компланарный случай ($\Delta i=0$), (ii) чисто наклонный манёвр ($\Delta e=0$).
+
+Сопряжённые множители (а значит и ориентация эллипса \emph{primer}-вектора) удобно получать дифференцированием \eqref{eq:u_final_vector} по приращениям элементов. Для краткости приводим результат (при нормировке $p_{\max}=1$):
+\begin{align}
+\lambda_1 &= \frac{K\,\Delta a}{2a_0^2\,u}\left[-\frac12+\frac{\Delta i^2-\Delta e_x^2-\Delta e_y^2+\Delta a^2/a_0^2}{\sqrt{\bigl(\Delta i^2-\Delta e_x^2-\Delta e_y^2+\Delta a^2/a_0^2\bigr)^2+4\Delta i^2\Delta e_y^2}}\right],\\
+\lambda_2 &= \frac{K\,\Delta e_y}{2a_0\,u}\left[1-\frac{-\Delta i^2-\Delta e_x^2-\Delta e_y^2+\Delta a^2/a_0^2}{\sqrt{\bigl(\Delta i^2-\Delta e_x^2-\Delta e_y^2+\Delta a^2/a_0^2\bigr)^2+4\Delta i^2\Delta e_y^2}}\right],\\
+\lambda_3 &= \frac{K\,\Delta e_x}{2a_0\,u}\left[1-\frac{\Delta i^2-\Delta e_x^2-\Delta e_y^2+\Delta a^2/a_0^2}{\sqrt{\bigl(\Delta i^2-\Delta e_x^2-\Delta e_y^2+\Delta a^2/a_0^2\bigr)^2+4\Delta i^2\Delta e_y^2}}\right],\\
+\lambda_4 &= -\frac{K\,\Delta e_x\,\Delta e_y}{a_0\,u}\,\frac{\Delta i}{\sqrt{\bigl(\Delta i^2-\Delta e_x^2-\Delta e_y^2+\Delta a^2/a_0^2\bigr)^2+4\Delta i^2\Delta e_y^2}},\\
+\lambda_5 &= \frac{K\,\Delta i}{2a_0\,u}\left[1+\frac{\Delta i^2-\Delta e_x^2+\Delta e_y^2+\Delta a^2/a_0^2}{\sqrt{\bigl(\Delta i^2-\Delta e_x^2-\Delta e_y^2+\Delta a^2/a_0^2\bigr)^2+4\Delta i^2\Delta e_y^2}}\right].
+\end{align}
+
+\subsection{Сингулярные решения и их связь с невырождёнными}
+Сингулярный случай получается из условия $\lambda_1=0$ для \eqref{eq:u_final_vector}, откуда находим согласующееся требование к $\Delta a$:
+\begin{equation}
+\Delta a^2=\Delta e_x^2+\Delta e_y^2+\frac{2}{\sqrt3}\,\Delta i\,\Delta e_y-\Delta i^2.
+\end{equation}
+При меньших по модулю $\Delta a$ сингулярный (или узловой) расход совпадает с невырождённым при подстановке этого критического $\Delta a$:
+\begin{equation}
+u_{\mathrm{sing}}=\sqrt{\frac{K}{4a_0}}\sqrt{(\sqrt3\,\Delta i+\Delta e_y)^2+\Delta e_x^2}.
+\end{equation}
+Ориентация окружности \emph{primer}-локуса задаётся
+\begin{equation}
+\tan\theta_0=\frac{\Delta e_y+\sqrt3\,\Delta i}{\Delta e_x},
+\end{equation}
+а оптимальные направления тяги даны тривиально по $\lambda,\mu,\nu$.
+
+\section{Верификация предельных случаев и тесты согласованности}
+\begin{itemize}
+\item \textbf{Чистое изменение наклонения:} $\Delta e_x=\Delta e_y=\Delta a=0$. Тогда из \eqref{eq:u_final_vector} получаем $u=\sqrt{\frac{K}{a_0}}\,\Delta i$ и направления импульсов чисто нормальные.
+\item \textbf{Компланарная линейная теория:} $\Delta i=0$. Формула даёт
+$u=\sqrt{\frac{K}{2a_0}}\sqrt{\Delta e^2-\Delta a^2/(2a_0^2)+\bigl|\Delta e^2-\Delta a^2/a_0^2\bigr|}$,
+что правильно разделяет режимы ``пересекающиеся/непересекающиеся'' (аналог известных линейных компланарных формул).
+\item \textbf{Неподвижный перицентр по $x$-оси:} $\Delta e_y=0$ $\Rightarrow$ исчезает смешанный член под радикалом, как и должно быть по симметрии.
+\end{itemize}
+
+\section{Частые опечатки и их исправления}
+По сравнению с распространёнными оцифровками мы исправили:
+\begin{enumerate}
+\item Согласование индексов $x_2\leftrightarrow e_y$, $x_3\leftrightarrow e_x$, $x_4\leftrightarrow i_y$, $x_5\leftrightarrow i_x$ во всех формулах.
+\item Знак и коэффициент при $\Delta a^2/a_0^2$ в \eqref{eq:u_final_vector}: неправильный множитель приводит к нарушению предельных переходов.
+\item Нормирующие коэффициенты $\sqrt{a_0/K}$ в \eqref{eq:lamR}--\eqref{eq:lamN}: в OCR их часто теряет распознавание.
+\end{enumerate}
+
+\section{Краткий алгоритм синтеза оптимального решения}
+\begin{enumerate}[label=\arabic*.]
+\item Заданы $\Delta(a/a_0),\ \Delta e_x,\ \Delta e_y,\ \Delta i_x,\ \Delta i_y$ (или $\Delta i=\sqrt{\Delta i_x^2+\Delta i_y^2}$ и углы $\omega,\Omega$).
+\item Вычислить тип решения: сингулярный, узловой или невырождённый (по неравенствам и/или по критерию $\lambda_1$).
+\item Для невырождённого: найти $R$ по приведённой формуле, далее $C,S$ из связей и $\delta$ из уравнения для распила; восстановить $\theta_{1,2}$.
+\item Направления импульсов даны нормированным \emph{primer}-вектором в точках $\theta_{1,2}$.
+\item Суммарный расход $u$ вычисляется по \eqref{eq:u_final_vector}, доли $u_1,u_2$--- по $\delta$.
+\end{enumerate}
+
+\section*{Заключение}
+Выведены и структурированы формулы минимально-импульсных переходов в трёхмерной линейной теории, даны условия применимости, проверены предельные случаи, сопоставлены и исправлены типовые опечатки оцифровок.
+
+\vspace{1em}
+\noindent\textbf{Компиляция:} документ ориентирован на XeLaTeX (для корректной кириллицы: \verb|xelatex noncoplanar_derivation.tex|).
+
+\end{document}

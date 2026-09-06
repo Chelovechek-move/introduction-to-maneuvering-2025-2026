@@ -1,0 +1,206 @@
+\documentclass[12pt]{article}
+
+\usepackage{fontspec}
+% надёжный шрифт с кириллицей (работает в Overleaf)
+\setmainfont{Libertinus Serif}[Ligatures=TeX]
+\setsansfont{Libertinus Sans}[Ligatures=TeX]
+\newfontfamily\cyrillicfont{Libertinus Serif}
+\newfontfamily\cyrillicfontsf{Libertinus Sans}
+\usepackage{polyglossia}
+\setmainlanguage{russian}
+\setotherlanguage{english}
+
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{microtype}
+
+\title{Подробный вывод формул оптимального импульсного управления \\ для transfers между соседними орбитами}
+\author{На основе работы T. N. Edelbaum}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\section{Постановка задачи}
+
+Рассмотрим задачу оптимального импульсного перехода между двумя соседними орбитами с малой эксцентричностью. Ориентации линий апсид и узлов произвольны. Используем линеаризованные уравнения движения относительно круговой орбиты.
+
+\section{Уравнения движения}
+
+Введем переменные состояния:
+\begin{align*}
+x_1 &= \frac{da}{a_0} \\
+x_2 &= e_y \\
+x_3 &= e_x \\
+x_4 &= i_y \\
+x_5 &= i_x
+\end{align*}
+
+Линеаризованные уравнения изменения параметров:
+\begin{align}
+\frac{dx_1}{du} &= 2\sqrt{\frac{a_0}{K}}l_T \tag{1} \\
+\frac{dx_2}{du} &= \sqrt{\frac{a_0}{K}}(2l_T\sin\theta - l_R\cos\theta) \tag{2} \\
+\frac{dx_3}{du} &= \sqrt{\frac{a_0}{K}}(2l_T\cos\theta + l_R\sin\theta) \tag{3} \\
+\frac{dx_4}{du} &= \sqrt{\frac{a_0}{K}}l_N\sin\theta \tag{4} \\
+\frac{dx_5}{du} &= \sqrt{\frac{a_0}{K}}l_N\cos\theta \tag{5}
+\end{align}
+
+где $u$ - интеграл от ускорения тяги по времени, $\theta$ - центральный угол.
+
+\section{Формулировка вариационной задачи}
+
+Гамильтониан системы:
+\begin{equation}
+H = \sum_{i=1}^5 \lambda_i \frac{dx_i}{du} \tag{6}
+\end{equation}
+
+Сопряженные переменные $\lambda_i$ удовлетворяют уравнениям:
+\begin{equation}
+\frac{d\lambda_i}{du} = -\frac{\partial H}{\partial x_i}
+\end{equation}
+
+Введем вектор праймера с компонентами:
+\begin{align}
+\lambda &= \sqrt{\frac{a_0}{K}}(-\lambda_2\cos\theta + \lambda_3\sin\theta) \tag{8} \\
+\mu &= \sqrt{\frac{a_0}{K}}(2\lambda_1 + 2\lambda_2\sin\theta + 2\lambda_3\cos\theta) \tag{9} \\
+\nu &= \sqrt{\frac{a_0}{K}}(\lambda_4\sin\theta + \lambda_5\cos\theta) \tag{10}
+\end{align}
+
+Оптимальное управление:
+\begin{equation}
+l_R = \frac{\lambda}{p}, \quad l_T = \frac{\mu}{p}, \quad l_N = \frac{\nu}{p} \tag{7}
+\end{equation}
+где $p = \sqrt{\lambda^2 + \mu^2 + \nu^2}$.
+
+\section{Преобразование уравнений для праймера}
+
+Введем угол $\theta_0$:
+\begin{equation}
+\tan\theta_0 = \frac{\lambda_2}{\lambda_3} \tag{14}
+\end{equation}
+
+Тогда:
+\begin{align}
+\lambda &= \sqrt{\frac{a_0}{K}}\sqrt{\lambda_2^2 + \lambda_3^2}\sin(\theta - \theta_0) \tag{11} \\
+\mu &= \sqrt{\frac{a_0}{K}}\left[2\lambda_1 + 2\sqrt{\lambda_2^2 + \lambda_3^2}\cos(\theta - \theta_0)\right] \tag{12}
+\end{align}
+
+Для нормальной компоненты:
+\begin{align}
+\nu &= \sqrt{\frac{a_0}{K}}\left[\frac{\lambda_3\lambda_4 - \lambda_2\lambda_5}{\sqrt{\lambda_2^2 + \lambda_3^2}}\sin(\theta - \theta_0) + \frac{\lambda_2\lambda_4 + \lambda_3\lambda_5}{\sqrt{\lambda_2^2 + \lambda_3^2}}\cos(\theta - \theta_0)\right] \tag{13}
+\end{align}
+
+\section{Три класса решений}
+
+\subsection{Узловой случай (Nodal Case)}
+
+Характеризуется условиями:
+\begin{align}
+\lambda_1 &= 0 \tag{15} \\
+\theta_2 &= \theta_1 + \pi \tag{16} \\
+\lambda(\theta_1) &= -\lambda(\theta_2) \\
+\mu(\theta_1) &= -\mu(\theta_2) \\
+\nu(\theta_1) &= -\nu(\theta_2) \tag{17}
+\end{align}
+
+Изменения орбитальных элементов:
+\begin{align}
+\frac{\Delta x_1}{u} &= 2\sqrt{\frac{a_0}{K}}l_{T_1}(1-2\delta) \tag{32} \\
+\frac{\Delta x_2}{u} &= -\sqrt{\frac{a_0}{K}}l_{R_1} \tag{33} \\
+\frac{\Delta x_3}{u} &= 2\sqrt{\frac{a_0}{K}}l_{T_1} \tag{34} \\
+\frac{\Delta x_4}{u} &= 0 \tag{35} \\
+\frac{\Delta x_5}{u} &= \sqrt{\frac{a_0}{K}}l_{N_1} \tag{36}
+\end{align}
+
+Суммарный импульс:
+\begin{equation}
+u = \sqrt{\frac{K}{a_0}}\sqrt{\Delta i^2 + \frac{\Delta e_x^2}{4} + \Delta e_y^2} \tag{37}
+\end{equation}
+
+\subsection{Невырожденный случай (Nondegenerate Case)}
+
+Условия:
+\begin{align}
+\lambda_2\lambda_4 &= -\lambda_3\lambda_5 \tag{18} \\
+\theta_2 - \theta_0 &= \theta_0 - \theta_1 \tag{19} \\
+\lambda(\theta_1) &= -\lambda(\theta_2) \\
+\mu(\theta_1) &= \mu(\theta_2) \\
+\nu(\theta_1) &= -\nu(\theta_2) \tag{20}
+\end{align}
+
+Введем новые переменные:
+\begin{align}
+R &\equiv \sqrt{\frac{a_0}{K}}\cdot\sqrt{\lambda_2^2 + \lambda_3^2} \tag{50} \\
+C &\equiv \cos(\theta - \theta_0) \\
+S &\equiv \sin(\theta - \theta_0)
+\end{align}
+
+Направляющие косинусы импульсов:
+\begin{align}
+l_R &= \frac{2R^2S}{\sqrt{1+R^2}\sqrt{4R^2 + (1-3R^2)C^2}} \tag{52} \\
+l_T &= \frac{\sqrt{1+R^2}C}{\sqrt{4R^2 + (1-3R^2)C^2}} \tag{53} \\
+l_N &= \frac{2RS}{\sqrt{1+R^2}\sqrt{4R^2 + (1-3R^2)C^2}} \tag{54}
+\end{align}
+
+\subsection{Сингулярный случай (Singular Case)}
+
+Условия:
+\begin{align}
+\lambda_1 &= 0 \tag{24} \\
+\lambda_2\lambda_4 &= -\lambda_3\lambda_5 \tag{25} \\
+3(\lambda_2^2 + \lambda_3^2)^2 &= (\lambda_3\lambda_4 - \lambda_2\lambda_5)^2 = \frac{3}{4}\frac{K}{a_0} \tag{26}
+\end{align}
+
+Компоненты праймера:
+\begin{align}
+\lambda &= \frac{1}{2}\sin(\theta - \theta_0) \tag{27} \\
+\mu &= \cos(\theta - \theta_0) \tag{28} \\
+\nu &= \frac{\sqrt{3}}{2}\sin(\theta - \theta_0) \tag{29}
+\end{align}
+
+\section{Вывод формул для импульсов}
+
+\subsection{Узловой случай}
+
+Из уравнений (32)-(36) выражаем компоненты импульса через изменения элементов:
+
+\begin{align*}
+l_{T_1} &= \frac{\Delta x_3}{2u}\sqrt{\frac{K}{a_0}} \\
+l_{R_1} &= -\frac{\Delta x_2}{u}\sqrt{\frac{K}{a_0}} \\
+l_{N_1} &= \frac{\Delta x_5}{u}\sqrt{\frac{K}{a_0}}
+\end{align*}
+
+Учитывая, что $l_{R_1}^2 + l_{T_1}^2 + l_{N_1}^2 = 1$, получаем:
+\begin{equation*}
+\left(\frac{\Delta x_2}{u}\right)^2\frac{K}{a_0} + \left(\frac{\Delta x_3}{2u}\right)^2\frac{K}{a_0} + \left(\frac{\Delta x_5}{u}\right)^2\frac{K}{a_0} = 1
+\end{equation*}
+
+Отсюда:
+\begin{equation*}
+u^2 = \frac{K}{a_0}\left(\Delta x_2^2 + \frac{\Delta x_3^2}{4} + \Delta x_5^2\right)
+\end{equation*}
+
+что соответствует уравнению (37).
+
+\subsection{Невырожденный случай}
+
+После введения переменных $R$, $C$, $S$ и решения системы уравнений получаем выражение для суммарного импульса:
+\begin{equation}
+u = \sqrt{\frac{K}{2a_0}}\sqrt{\Delta i^2 + \Delta e_x^2 + \Delta e_y^2 - \frac{\Delta a^2}{2a_0^2} + \sqrt{\left(\Delta i^2 - \Delta e_x^2 - \Delta e_y^2 + \frac{\Delta a^2}{a_0^2}\right)^2 + 4\Delta i^2\Delta e_y^2}} \tag{68}
+\end{equation}
+
+\subsection{Сингулярный случай}
+
+Для сингулярного случая получаем:
+\begin{equation}
+u = \sqrt{\frac{K}{4a_0}}\sqrt{\left(\sqrt{3}\Delta i + \Delta e_y\right)^2 + \Delta e_x^2} \tag{75}
+\end{equation}
+
+\section{Заключение}
+
+В работе представлен подробный вывод формул оптимального импульсного управления для переходов между соседними орбитами. Рассмотрены три класса решений: узловой, невырожденный и сингулярный. Для каждого случая получены выражения для суммарного импульса и оптимальных направлений thrust.
+
+\end{document}

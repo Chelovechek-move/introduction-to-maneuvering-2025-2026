@@ -1,0 +1,298 @@
+\documentclass[12pt,a4paper]{extarticle}
+
+\usepackage{cite}
+\usepackage[nottoc]{tocbibind}
+\usepackage{a4wide}
+\usepackage[utf8]{inputenc}
+
+% Кодировка шрифта, соответствующая русскоязычному набору
+\usepackage[T2A]{fontenc}
+
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks,
+    citecolor=black,
+    filecolor=black,
+    linkcolor=black,
+    urlcolor=black
+}
+
+\usepackage{fontspec}
+% надёжный шрифт с кириллицей (работает в Overleaf)
+\setmainfont{Libertinus Serif}[Ligatures=TeX]
+\setsansfont{Libertinus Sans}[Ligatures=TeX]
+\newfontfamily\cyrillicfont{Libertinus Serif}
+\newfontfamily\cyrillicfontsf{Libertinus Sans}
+\usepackage{polyglossia}
+\setmainlanguage{russian}
+\setotherlanguage{english}
+
+\usepackage{graphics,graphicx}
+\usepackage{amssymb,amsfonts,amsthm,amsmath,mathtext,cite,enumerate,float}
+\usepackage{bm}
+\usepackage[hyphens]{url}
+\usepackage{multirow}
+\usepackage{multicol}
+\usepackage{cases}
+\usepackage{enumitem}
+\usepackage{indentfirst}
+\usepackage{graphicx}
+\usepackage{microtype}
+\usepackage{pdfpages}
+\usepackage{cleveref}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{titlesec}
+\usepackage{makecell}
+\titlelabel{\thetitle.\quad}
+\usepackage[dotinlabels]{titletoc}
+
+% Задать поля
+\usepackage[top=20mm,bottom=20mm,left=30mm,right=15mm]{geometry}
+
+% Использовать для подписи рис. формат "Рис. N." заместо "Рис. N:"
+\DeclareCaptionLabelSeparator{dot}{ -- }
+
+% Подпись по центру + установить новый формат подписи
+\captionsetup{figurename=Рисунок, justification=centering, labelsep=dot}
+
+\usepackage{fancybox}
+
+% Нумерация страниц сверху
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyfoot[C]{\fontsize{12}{12}\selectfont \thepage}
+\renewcommand{\headrulewidth}{0pt}
+
+%\pagestyle{myheadings}         % номер страницы в правом верхнем углу
+\parindent=1.25cm               % абзацный отступ
+\parskip=0pt                    % интервал между абзацами
+\tolerance=2000                 % "терпимость" к жидким строкам
+\flushbottom                    % выравнивание высоты страниц
+
+\usepackage{setspace}
+\setstretch{1.2}
+
+\begin{document}
+
+\subsubsection{Узловое решение}
+Область существования узлового решения задаётся следующей системой уравнений:
+\begin{equation}
+\begin{cases}
+    \Delta i^2 \geq 3\Delta e_y^2, \\
+    \Delta a^2 \leq \Delta e_x^2.
+\end{cases}
+\end{equation}
+Приведём выражения для оптимального двухимпульсного решения в общем случае:
+\begin{equation}
+    \Delta V_{t1} = \frac{1}{4} (\Delta a + \Delta e_x) V_0,
+\label{nodal_first}
+\end{equation}
+\begin{equation}
+    \Delta V_{r1} = -\frac{1}{2} (\Delta a + \Delta e_x) \frac{\Delta e_y}{\Delta e_x} V_0,
+\end{equation}
+\begin{equation}
+    \Delta V_{z1} = \frac{1}{2} (\Delta a + \Delta e_x) \frac{\Delta i}{\Delta e_x} V_0,
+\end{equation}
+\begin{equation}
+    \Delta V_{t2} = \frac{1}{4} (\Delta a - \Delta e_x) V_0,
+\end{equation}
+\begin{equation}
+    \Delta V_{r2} = -\frac{1}{2} (\Delta a - \Delta e_x) \frac{\Delta e_y}{\Delta e_x} V_0,
+\end{equation}
+\begin{equation}
+    \Delta V_{z2} = \frac{1}{2} (\Delta a - \Delta e_x) \frac{\Delta i}{\Delta e_x} V_0.
+\label{nodal_last}
+\end{equation}
+Система уравнений (\ref{nodal_first}) --- (\ref{nodal_last}) может претерпевать вырождение, если $\Delta e_x = 0$. В таком случае следует использовать решение (\ref{nodal_deg_first}) --- (\ref{nodal_deg_last}):
+\begin{equation}
+    \Delta V_{t1} = \Delta V_{t2} = 0,
+\label{nodal_deg_first}
+\end{equation}
+\begin{equation}
+    \Delta V_{r1} = - \frac{\Delta e_y}{2} V_0, \quad \Delta V_{z1} = \frac{\Delta i}{2} V_0,
+\end{equation}
+\begin{equation}
+    \Delta V_{r2} = \frac{\Delta e_y}{2} V_0, \quad \Delta V_{z2} = - \frac{\Delta i}{2} V_0,
+\label{nodal_deg_last}
+\end{equation}
+
+Точки приложения импульсов для обоих случаев находятся на линии пересечения плоскостей орбит и разнесены на $180^{\circ}$.
+
+\subsubsection{Невырожденное решение}
+Область существования невырожденного решения задаётся системой (\ref{deg_cond}):
+\begin{equation}
+\begin{cases}
+    \Delta a^2 \geq \Delta e_x^2 + \Delta e_y^2 + \frac{2}{\sqrt{3}} \Delta e_y \Delta i - \Delta i^2, \\
+    \Delta a^2 \geq \Delta e_x^2.
+\end{cases}
+\label{deg_cond}
+\end{equation}
+Приведём выражения для нахождения оптимального двухимпульсного решения в общем случае. Для этого нужно проделать некоторую подготовительную работу. Суммарная характеристическая скорость для невырожденного случая задаётся выражением (\ref{deg_delta_V}):
+\begin{equation}
+    \Delta V = V_0 \sqrt{\frac{1}{2}} \sqrt{A + B},
+\label{deg_delta_V}
+\end{equation}
+где $A = \Delta i^2 + \Delta e_x^2 - \frac{1}{2} \Delta e_y^2 + \Delta a^2$, $B = \sqrt{(\Delta i^2 - \Delta e_x^2 - \Delta e_y^2 + \Delta a^2)^2 + 4 \Delta i^2 \Delta e_y^2}$.
+
+Если максимум модуля базис-вектора $P$ принять равным единице, то множители Лагранжа $\lambda_k$, $k \in \{1, 2, 3, 4, 5\}$, для каждой переменной состояния (элемента орбиты) будут являться частными производными от $\Delta V$ по соответствующей переменной. Выражения (\ref{lambda_1}) - (\ref{lambda_6}) впервые были получены в работе \cite{Edelbaum_1}.
+\begin{equation}
+    \lambda_1 = \frac{\Delta a}{2 \Delta V} \left[ -\frac{1}{2} + \frac{\Delta i^2 - \Delta e_x^2 - \Delta e_y^2 + \Delta a^2}{\sqrt{(\Delta i^2 - \Delta e_x^2 - \Delta e_y^2 + \Delta a^2)^2 + 4 \Delta i^2 \Delta e_y^2}} \right],
+\label{lambda_1}
+\end{equation}
+\begin{equation}
+    \lambda_2 = \frac{\Delta e_y}{2 \Delta V} \left[ 1 + \frac{-\Delta i^2 - \Delta e_x^2 - \Delta e_y^2 + \Delta a^2}{\sqrt{(\Delta i^2 - \Delta e_x^2 - \Delta e_y^2 + \Delta a^2)^2 + 4 \Delta i^2 \Delta e_y^2}} \right],
+\end{equation}
+\begin{equation}
+    \lambda_3 = \frac{\Delta e_x}{2 \Delta V} \left[ 1 + \frac{\Delta i^2 - \Delta e_x^2 - \Delta e_y^2 + \Delta a^2}{\sqrt{(\Delta i^2 - \Delta e_x^2 - \Delta e_y^2 + \Delta a^2)^2 + 4 \Delta i^2 \Delta e_y^2}} \right],
+\end{equation}
+\begin{equation}
+    \lambda_4 = \frac{-\Delta e_y}{2 \Delta V} \left[ \frac{2 \Delta i \Delta e_y}{\sqrt{(\Delta i^2 - \Delta e_x^2 - \Delta e_y^2 + \Delta a^2)^2 + 4 \Delta i^2 \Delta e_y^2}} \right],
+\end{equation}
+\begin{equation}
+    \lambda_5 = \frac{\Delta i}{2 \Delta V} \left[ 1 + \frac{\Delta i^2 - \Delta e_x^2 + \Delta e_y^2 + \Delta a^2}{\sqrt{(\Delta i^2 - \Delta e_x^2 - \Delta e_y^2 + \Delta a^2)^2 + 4 \Delta i^2 \Delta e_y^2}} \right].
+\label{lambda_6}
+\end{equation}
+Введём вспомогательный угол $\theta$ и определим углы приложения импульсов скорости с помощью выражений (\ref{phi_1}) и (\ref{phi_2}):
+\begin{equation}
+    \tan \theta = \frac{\lambda_2}{\lambda_3},
+\end{equation}
+\begin{equation}
+    \cos (\varphi_1 - \theta) = \frac{4 \lambda_1 \left( \sqrt{\lambda_2^2 + \lambda_3^2} \right)^3}{(\lambda_3 \lambda_4 - \lambda_2 \lambda_5)^2 - 3 \left( \lambda_2^2 + \lambda_3^2 \right)^2},
+\label{phi_1}
+\end{equation}
+\begin{equation}
+    \varphi_2 = 2\theta - \varphi_1.
+\label{phi_2}
+\end{equation}
+
+Выпишем выражения для координат базис-вектора:
+\begin{equation}
+    \lambda = - \lambda_2 \cos \varphi_1 + \lambda_3 \sin \varphi_1,
+\label{prime_vector_lambda}
+\end{equation}
+\begin{equation}
+    \mu = 2 \lambda_1 + 2 \lambda_2 \sin \varphi_1 + 2 \lambda_3 \cos \varphi_1,
+\end{equation}
+\begin{equation}
+    \nu = \lambda_4 \sin \varphi_1 + \lambda_5 \cos \varphi_1.
+\label{prime_vector_nu}
+\end{equation}
+Впервые они были получены Лоуденом в работе \cite{Lawden_all} и приведёны к виду (\ref{prime_vector_lambda}) --- (\ref{prime_vector_nu}) Эдельбаумом в \cite{Edelbaum_1}. Теперь приведём окончательные выражения для проекций импульсов скорости:
+\begin{equation}
+    \Delta V_1 = \frac{\lambda_2 \Delta V}{\lambda_2 - \lambda_1}, \quad \Delta V_2 = \frac{\lambda_1 \Delta V}{\lambda_1 - \lambda_2},
+\end{equation}
+\begin{equation}
+    \Delta V_{t1} = \Delta V_1 \mu V_0, \quad \Delta V_{r1} = \Delta V_1 \lambda V_0, \quad \Delta V_{z1} = \Delta V_1 \nu V_0,
+\end{equation}
+\begin{equation}
+    \Delta V_{t2} = \Delta V_2 \mu V_0, \quad \Delta V_{r2} = \Delta V_2 \lambda V_0, \quad \Delta V_{z2} = -\Delta V_2 \nu V_0.
+\label{delta_V2_deg_case}
+\end{equation}
+
+Решение (\ref{deg_delta_V}) --- (\ref{delta_V2_deg_case}) может претерпевать вырождения, если $\Delta e_x = \Delta e_y = 0$. В таком случае предлагается воспользоваться следующими выражениями:
+\begin{equation}
+    \Delta V_{r1} = \Delta V_{r2} = 0,
+\label{deg_deg_first}
+\end{equation}
+\begin{equation}
+    \Delta V_{t1} = \frac{\Delta a}{4} V_0, \quad \Delta V_{z1} = \frac{\Delta i}{2} V_0,
+\end{equation}
+\begin{equation}
+    \Delta V_{t2} = \frac{\Delta a}{4} V_0, \quad \Delta V_{z2} = - \frac{\Delta i}{2} V_0,
+\label{deg_deg_last}
+\end{equation}
+Точки приложения для решения (\ref{deg_deg_first}) --- (\ref{deg_deg_last}) находятся на линии пересечения плоскостей орбит и разнесены на $180^{\circ}$.
+
+\subsubsection{Особое решение}
+Область существования особого решения:
+\begin{equation}
+\begin{cases}
+    \Delta a^2 \leq \Delta e_x^2 + \Delta e_y^2 + \frac{2}{\sqrt{3}} \Delta e_y \Delta i - \Delta i^2, \\
+    \Delta i^2 \leq 3\Delta e_y^2.
+\end{cases}
+\end{equation}
+Получить аналитическое решение двухимпульсной задачи оптимального перехода в этом случае не представляется возможным. Поэтому воспользуемся четырёхимпульсным решением. Его выбор был обусловлен простотой реализации и возможностью разделения импульсов по направлению коррекции орбиты: в плоскости и в боковом направлении.
+
+Первые два импульса будут отвечать за коррекцию плоскости орбиты, а потому будут иметь лишь боковые компоненты:
+\begin{equation}
+    \Delta V_{z1} = \frac{\Delta i}{2} V_0, \quad \Delta V_{z2} = - \frac{\Delta i}{2} V_0.
+\end{equation}
+Их точки приложения должны находиться на линии пересечения плоскостей орбит с интервалом в $180^{\circ}$. После этого воспользуемся уже описанными алгоритмами для компланарных переходов, что и завершит решение этой задачи.
+
+\newpage
+
+\begin{align*}
+    &-\sqrt{\frac{P}{\mu}} \{ \left[ b (h \cos L - k \sin L) - \frac{2}{w^2} \frac{dw}{dL} \sqrt{\frac{P}{a}} \right] \Delta V_r - \\
+    & - \left[ \frac{b}{w} (w + 1) (k \cos L + h \sin L) -
+    \frac{b}{w^2} \frac{dw}{dL} (k \sin L - h \cos L) \right] \Delta V_t - \\
+    & - \left[ \frac{1}{w} (Iq \cos L + p \sin L) - \frac{1}{w^2} \frac{dw}{dL} (Iq \sin L - p \cos L) \right] \Delta V_n \}
+\end{align*}
+
+\newpage
+
+\begin{equation*}
+    \dot{\mathbf{y}} = 
+    \begin{bmatrix}
+        \mathbf{0}_{5 \times 1} \\
+        n(\mathbf{y})
+    \end{bmatrix}
+    +
+    B(\mathbf{y}) \mathbf{a},
+\end{equation*}
+где 
+\begin{equation*}
+    B(\mathbf{y}) = 
+    \begin{bmatrix}
+        \sqrt{\frac{p}{\mu}} \frac{2a}{1 - e^2} e \sin \nu &
+        \sqrt{\frac{p}{\mu}} \frac{2a}{1 - e^2} \frac{p}{r} & 
+        0 \\
+    
+        \sqrt{\frac{p}{\mu}} \sin \nu &
+        \sqrt{\frac{p}{\mu}} \left[ \left(1 + \frac{r}{p} \right) \cos \nu + e \frac{r}{p} \right] & 
+        0 \\
+    
+        -\sqrt{\frac{p}{\mu}} \frac{\cos \nu}{e} &
+        \sqrt{\frac{p}{\mu}} \frac{1}{e} \left(1 + \frac{r}{p} \right) \sin \nu &
+        -\sqrt{\frac{p}{\mu}} \frac{r}{p} \text{ctg } i \sin u \\
+    
+        0 &
+        0 &
+        \sqrt{\frac{p}{\mu}} \frac{r}{p} \cos u \\
+    
+        0 & 
+        0 &
+        \sqrt{\frac{p}{\mu}} \frac{r}{p} \frac{\sin u}{\sin i} \\
+    
+        \sqrt{\frac{p}{\mu}} \frac{\sqrt{1 - e^2}}{e} \left( \cos \nu - 2e \frac{r}{p} \right) &
+        -\sqrt{\frac{p}{\mu}} \frac{\sqrt{1 - e^2}}{e} \left(1 + \frac{r}{p} \right) \sin \nu &
+        0
+    \end{bmatrix}
+\end{equation*}
+\begin{equation*}
+    \mathbf{a} = c \; \mathbf{e} \; \theta(t), \quad \quad
+    \theta(t) = 
+    \begin{cases}
+        1, t \in [t_0, t_1] \\
+        0, t \notin [t_0, t_1]
+    \end{cases}
+\end{equation*}
+$c = \text{const}$, $\mathbf{e}$ - постоянный единичный вектор. Таким образом $\mathbf{a}$ - простейшая модель протяжённого манёвра с постоянной ориентацией и модулем. 
+
+Если численно проинтегрировать написанное выше уравнение движения, то мы получим точный прогноз (точность метода интегрирования будем считать идеальной). Я хотел бы исследовать переход от модели протяжённого импульса к модели мгновенного импульса. Я написал следующие соображения:
+\begin{align*}
+    \Delta \mathbf{y} &= \int_{t_0}^{t_1} ( \mathbf{0}_{5 \times 1}, \;  n(\mathbf{y}))^\top dt + \int_{t_0}^{t_1} B(\mathbf{y}) \mathbf{a} dt \approx \\
+    &\approx \int_{t_0}^{t_1} ( \mathbf{0}_{5 \times 1}, \;  n(\mathbf{y}))^\top dt + \int_{t_0}^{t_1} \left[ B(\mathbf{y}_0) + \frac{dB}{d \mathbf{y}} (\mathbf{y}_0) \delta \mathbf{y} \right] \mathbf{a} dt = \\
+    &= \int_{t_0}^{t_1} ( \mathbf{0}_{5 \times 1}, \;  n(\mathbf{y}))^\top dt + \int_{t_0}^{t_1} \left[ B(\mathbf{y}_0) + \frac{dB}{d \mathbf{y}} (\mathbf{y}_0) \delta \mathbf{y} \right] \frac{\Delta \mathbf{V}}{T} dt = \\
+    &= \int_{t_0}^{t_1} ( \mathbf{0}_{5 \times 1}, \;  n(\mathbf{y}))^\top dt + B(\mathbf{y}_0) \frac{\Delta \mathbf{V}}{T}  \int_{t_0}^{t_1} dt + \int_{t_0}^{t_1} \frac{dB}{d \mathbf{y}} (\mathbf{y}_0) \delta \mathbf{y} \frac{\Delta \mathbf{V}}{T} dt = \\
+    &= \int_{t_0}^{t_1} ( \mathbf{0}_{5 \times 1}, \;  n(\mathbf{y}))^\top dt + B(\mathbf{y}_0) \Delta \mathbf{V} + \int_{t_0}^{t_1} \frac{dB}{d \mathbf{y}} (\mathbf{y}_0) \delta \mathbf{y} \frac{\Delta \mathbf{V}}{T} dt.
+\end{align*} 
+Если устремить $| t_1 - t_0 | \longrightarrow 0$, то
+\begin{equation*}
+    \Delta \mathbf{y} = B(\mathbf{y}_0) \Delta \mathbf{V}.
+\end{equation*}
+
+Мне знакомо это выражение. То есть в каком то приближении я получил верный результат. Но вот мне не хватает его. Здесь при переходе в предел все остальные слагаемые убиваются, но это скорее недоработка моих вычислений. Я хочу, чтобы ты сделал всё то же самое более формально. Введи где нужно дельта функции. Наведи хорошего и понятного формализма. Самое важное - оцени ошибку этого приближения: $\Delta \mathbf{y} = B(\mathbf{y}_0) \Delta \mathbf{V}$.
+
+\end{document}
